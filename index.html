@@ -1,10 +1,15 @@
-<html>
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+---
+layout: stickie
+---
 
-  <title>Stickies Home Page</title>
-</head>
-<body>
-  <h1 id="heading">Coming soon!</h1>
-</body>
-</html>
+{% assign first_post = site.posts.first %}
+<div id="post">
+  <h2><a href="{{ first_post.url }}">{{ first_post.title }}</a></h2>
+  {{ first_post.content }}
+</div>
+
+<h3>Archive</h3>
+<ul id="archive">
+  {% for post in site.posts %}
+  <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+</ul>
