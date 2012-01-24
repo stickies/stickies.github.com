@@ -1,0 +1,9 @@
+Glog in combination with Gedit to view history of a file in vim
+
+Browsing past revisions
+
+Quickfix list
+
+]Q
+]q
+
