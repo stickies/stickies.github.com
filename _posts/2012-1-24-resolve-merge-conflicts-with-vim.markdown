@@ -1,8 +1,8 @@
-===
+---
 layout: stickie
 title: Using vim to resolve git merge conflicts
 meta: git, vim, merge, conflict
-===
+---
 
 {{title}}
 THis is inspired by the vimcasts video on the topic

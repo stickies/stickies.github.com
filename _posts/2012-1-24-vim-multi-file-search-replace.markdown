@@ -1,8 +1,8 @@
-===
+---
 layout: stickie
 title: Vim multi file search replace
 meta: 
-===
+---
 
 {{title}}
 This is an example of how you can use vim to do multi file search and replace

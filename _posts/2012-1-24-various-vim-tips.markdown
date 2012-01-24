@@ -1,8 +1,8 @@
-===
+---
 layout: stickie
 title: Various vim tips
 meta: git, vim, merge, conflict
-===
+---
 
 {{title}}
 VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM 

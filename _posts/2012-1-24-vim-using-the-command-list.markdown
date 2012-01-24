@@ -1,8 +1,8 @@
-===
+---
 layout: stickie
 title: Using the command list in vim
 meta: 
-===
+---
 
 {{title}}
 
