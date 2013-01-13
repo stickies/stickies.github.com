@@ -10,7 +10,7 @@ meta: vi-7.3
 
 Vim has some powerful autocompletion features. Out of the box autocompletion for insert mode is a *sub mode* which you access using *Ctrl X*. If you view the help file:
 
-:help ins-completion
+    :help ins-completion
 
 Autocompletion can draw it's matches from many different sources. Below is a list of sources ( taken from the help file ), which I am going to delve into.
 
