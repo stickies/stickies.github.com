@@ -38,11 +38,7 @@ so, in your vimrc ...
     :set dictionary='/usr/share/dict/word'
 
 #### The thesaurus
-Unfortunately, the thesaurus on a Mac is stored in a binary format, so is inaccessible to vim. Instead, check out:
-
-    [https://github.com/sgur/thesaurus-gutenberg.vim](https://github.com/sgur/thesaurus-gutenberg.vim)
-
-It's a pre-defined thsaurus for vim.
+Unfortunately, the thesaurus on a Mac is stored in a binary format, so is inaccessible to vim. Instead, check out [https://github.com/sgur/thesaurus-gutenberg.vim](https://github.com/sgur/thesaurus-gutenberg.vim), it's a pre-defined thsaurus for Vim.
 
 #### Included files
 This option lets you include words from other files in the include path, if you use ctags, this is almost not necessary in my mind.
