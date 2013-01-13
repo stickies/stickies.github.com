@@ -30,9 +30,9 @@ Autocompletion can draw it's matches from many different sources. Below is a lis
 
 #### The dictionary
 On Mac OSX Lion, the dictionary files are located at
-  /usr/share/dict/words
-
-  :set dictionary='/usr/share/dict/word'
+    /usr/share/dict/words
+so, in your vimrc ...
+    :set dictionary='/usr/share/dict/word'
 
 #### The thesaurus
 Unfortunately, the thesaurus on a Mac is stored in a binary format, so is inaccessible to vim.
