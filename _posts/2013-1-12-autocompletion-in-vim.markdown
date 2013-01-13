@@ -40,7 +40,7 @@ so, in your vimrc ...
 #### The thesaurus
 Unfortunately, the thesaurus on a Mac is stored in a binary format, so is inaccessible to vim. Instead, check out:
 
-    https://github.com/sgur/thesaurus-gutenberg.vim
+    [https://github.com/sgur/thesaurus-gutenberg.vim](https://github.com/sgur/thesaurus-gutenberg.vim)
 
 It's a pre-defined thsaurus for vim.
 
