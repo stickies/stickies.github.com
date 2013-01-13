@@ -53,6 +53,6 @@ This is really just for when you are writing vimscript and want to autocomplete 
 This function looks like it could be really powerful as it lets you define your own custom function for autocompletion. Perhaps the topic of another post :)
 
 ## Plugins
-There are lots of different approaches and solutions to autocompletion in vim. My personal favorite as of this time is a plugin called supertab  which makes it super easy to autocomplete using words that are
+There are lots of different approaches and solutions to autocompletion in vim. My personal favorite as of this time is a plugin called supertab  which makes it super easy to autocomplete.
 
   Bundle ervandew/supertab
