@@ -12,6 +12,8 @@ Vim has some powerful autocompletion features. Out of the box autocompletion for
 
     :help ins-completion
 
+You can find out all you need to know about the default Vim autocomplete functionality.
+
 Autocompletion can draw it's matches from many different sources. Below is a list of sources ( taken from the help file ), which I am going to delve into.
 
 1. Whole lines						|i_CTRL-X_CTRL-L|
@@ -37,6 +39,8 @@ so, in your vimrc ...
 
     :set dictionary='/usr/share/dict/word'
 
+Now you have autocompletion with 235886 words at your disposal! You can actually give 'dictionary' a list, for example you could also add the propernames file at */usr/share/dict/propernames*.
+
 #### The thesaurus
 Unfortunately, the thesaurus on a Mac is stored in a binary format, so is inaccessible to vim. Instead, check out [https://github.com/sgur/thesaurus-gutenberg.vim](https://github.com/sgur/thesaurus-gutenberg.vim), it's a pre-defined thsaurus for Vim.
 
@@ -56,7 +60,11 @@ This is really just for when you are writing vimscript and want to autocomplete 
 This function looks like it could be really powerful as it lets you define your own custom function for autocompletion. Perhaps the topic of another post :)
 
 ### Plugins
-  Bundle ervandew/supertab
+My personal favorite:
+[https://github.com/ervandew/supertab](https://github.com/ervandew/supertab)
+
+Also:
+[https://github.com/Shougo/neocomplcache](https://github.com/Shougo/neocomplcache)
 
 #### Useful resources
-http://vim.wikia.com/wiki/Any_word_completion
+[http://vim.wikia.com/wiki/Any_word_completion](http://vim.wikia.com/wiki/Any_word_completion)
