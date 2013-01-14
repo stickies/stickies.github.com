@@ -64,11 +64,11 @@ If you're in the index version with the Gdiff command and there are changes betw
 
 ## Using Glog to view the history of a file in git.
 
-Fugitive lets you view the git log with the handy %Glog% command. This command outputs to the quickfix buffer. Youcan traverse the list by using either
+Fugitive lets you view the git log with the handy %Glog% command. This command outputs to the quickfix buffer. You can traverse the list by using either
 
     :copen #open the quickfix pane
-    :cn
-    :cp
+    :cn # open the item in the quickfix list
+    :cp  open the previous item in the  quickfix list
     :cnf
     :cpf
 
