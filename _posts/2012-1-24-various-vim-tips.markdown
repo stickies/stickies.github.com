@@ -49,7 +49,7 @@ Fugitive
 
 ...to traverse lines
 
-Use the - ( minus key) to stage and unstage
+Use the - ( minus key ) to stage and unstage
 Use with Gdiff and Folding
 
     Shift c - open the commit window
@@ -62,12 +62,28 @@ with Gdiff you can stage changes to the index ( left buffer ) with :Gwrite or yo
 
 If you're in the index version with the Gdiff command and there are changes between the two files, use diffput  to reflect the changes into the working copy
 
+## Using Glog to view the history of a file in git.
+
+Fugitive lets you view the git log with the handy %Glog% command. This command outputs to the quickfix buffer. Youcan traverse the list by using either
+
+    :copen #open the quickfix pane
+    :cn
+    :cp
+    :cnf
+    :cpf
+
     Glog
+
     Glog --
+
+If you want to traverse the history of the current file, you can use:
+
     Glog -- %
 
-a
-return
+This will generate a list of all the commit objects in which the current file is referenced. You can then traverse through these to see the history or changes by using
+
+    :cn
+    :cp
 
 See line by line when and by whom a file was last changed
 
