@@ -6,7 +6,7 @@ meta: Vim-7.3
 
 {{title}}
 
-A lot of the time I see people reach for the binary distribution of a package when the homebrew version doesn't meet the requirement. Most of the time, this is folly!
+A lot of the time I see people reach for the binary distribution of a package when the homebrew version doesn't meet the requirement. Most of the time you don't need to do this.
 
 #### GIT GIT GIT!
 
