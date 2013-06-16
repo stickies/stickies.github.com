@@ -75,7 +75,7 @@ To test the prototype there are a couple of different approaches you can use, fi
 ##### mock the whole prototype
 Secondly, if you want, you could stub out the whole prototype with a mock/spy object like so:
 
-    //= require maps/lenders/application.js
+    //= require maps/application.js
 
     describe("MiniMap", function(){
       var MapSpy, mini_map = null;
