@@ -34,14 +34,16 @@ and you can relax it a bit too
 
     join_query = users.project('*').join(profiles).on(users[:id].eq(profiles['user_id']))
 
-## get a relation's columns
+#### get a relation's columns
+
     users.columns.map(&:name)
 
 UPDATNG TABLES
+
     crudder = Arel::SelectManager.new users.engine
 
     crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
-#=> "UPDATE \"sf_guard_user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"sf_guard_user\".\"id\" = 1"
+    #=> "UPDATE \"sf_guard_user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"sf_guard_user\".\"id\" = 1"
 
     profiles = Arel::Table.new(:sf_guard_user_profile)
     user_groups = Arel::Table.new(:sf_guard_user_group)
@@ -54,7 +56,7 @@ UPDATNG TABLES
 ## Soo ... stored procedures :D
 #
 ## Could you express the following as Arel... ?
-ActiveRecord::Base.connection.execute "select id, (select * from financial.balance(u.id, true)) as bal from sf_guard_user as u where u.id = 109"
+    ActiveRecord::Base.connection.execute "select id, (select * from financial.balance(u.id, true)) as bal from sf_guard_user as u where u.id = 109"
     ActiveRecord::Base.connection.execute "select id, (select * from financial.account_ref(u.id)) as bal from sf_guard_user as u where u.id = 109"
 
 And the answer, as it turns out, is yes, somewhat ...
