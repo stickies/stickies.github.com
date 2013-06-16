@@ -3,7 +3,7 @@ layout: stickie
 title: Playing with arel
 meta: Arel, ruby
 ---
-users table stuff
+### users table stuff
 
     def arex query
       ActiveRecord::Base.connection.execute query
@@ -14,15 +14,19 @@ users table stuff
     basic_query = users.project(users[:id]) # select one field
 
 specify cartesian subset
+
     specific_query = users.project([users[:id], users[:username]])
 
 ... with conditions
+
     specific_query = users.project([users[:id], users[:username]]).where(users[:id].eq(1))
 
 #### ... with a join, can get tricky
     join_query = users.project([users[:id], users[:username]]).join(:sf_guard_user_profile).on(users[:id].eq('sf_guard_user_profile.user_id'))
+
 Returns ...
-"SELECT \"sf_guard_user\".\"id\", \"sf_guard_user\".\"username\" FROM \"sf_guard_user\" INNER JOIN 'sf_guard_user_profile' ON \"sf_guard_user\".\"id\" = 0"
+
+    "SELECT \"sf_guard_user\".\"id\", \"sf_guard_user\".\"username\" FROM \"sf_guard_user\" INNER JOIN 'sf_guard_user_profile' ON \"sf_guard_user\".\"id\" = 0"
 
 using additional Arel tables seems to clear this up
 
@@ -43,12 +47,12 @@ UPDATNG TABLES
     crudder = Arel::SelectManager.new users.engine
 
     crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
-    => "UPDATE \"sf_guard_user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"sf_guard_user\".\"id\" = 1"
+    #=> "UPDATE \"sf_guard_user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"sf_guard_user\".\"id\" = 1"
 
     profiles = Arel::Table.new(:sf_guard_user_profile)
     user_groups = Arel::Table.new(:sf_guard_user_group)
 
-## Get lender profiles
+#### Get lender profiles
     profiles.project(Arel.star).join(user_groups).on(user_groups[:user_id].eq(profiles[:user_id])).where(user_groups[:group_id].eq(3))
 
     manager = Arel::SelectManager.new Table.engine
