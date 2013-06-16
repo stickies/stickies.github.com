@@ -35,7 +35,7 @@ and you can relax it a bit too
     join_query = users.project('*').join(profiles).on(users[:id].eq(profiles['user_id']))
 
 ## get a relation's columns
-users.columns.map(&:name)
+    users.columns.map(&:name)
 
 UPDATNG TABLES
     crudder = Arel::SelectManager.new users.engine
