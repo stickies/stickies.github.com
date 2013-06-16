@@ -3,10 +3,11 @@ layout: stickie
 title: stickies
 ---
 
-{% assign first_post = site.posts.first %}
 <div id="post">
-  <h2><a href="{{ first_post.url }}">{{ first_post.title }}</a></h2>
-  {{ first_post.content }}
+  {% for post in site.posts %}
+    <h2><a href="{{ first_post.url }}">{{ first_post.title }}</a></h2>
+    {{ post.content }}
+  {% endfor %}
 </div>
 
 <h3>Archive</h3>
