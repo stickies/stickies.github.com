@@ -18,11 +18,29 @@ We have been using [jasmine](http://pivotal.github.io/jasmine/) at work in our m
 I'm working on a project that involves using d3 to create maps, I want to use prototyical inheritance to make my map solution reusable and flexible. I want to test that the code works and that the maps are generated correctly.
 
 Given I have a base prototype:
-    Map()
+
+    function Map(attrs) {}
+    Map.prototype.setProjection = function(attrs){}
 
 And an object that inherits properties from map:
-    MiniMap()
 
+    function MiniMap(attrs){
+      Map.call(this);
+      this.scale = 2000;
+      this.width = 500;
+      this.height = 800;
+      this.center = [0, 55.4];
+      this.rotate = [4.4, 0];
+      this.parallels = [50, 60];
+
+      this.setProjection();
+    }
+    MiniMap.prototype = new Map();
+    lmp = MiniMap.prototype
+    lmp.constructor = MiniMap;
+
+
+#### The test
 To test the prototype there are a couple of different approaches you can use:
 
     //= require maps/application.js
