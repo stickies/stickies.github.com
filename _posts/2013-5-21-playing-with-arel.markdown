@@ -53,9 +53,9 @@ UPDATNG TABLES
 
     manager = Arel::SelectManager.new Table.engine
 
-## Soo ... stored procedures :D
-#
-## Could you express the following as Arel... ?
+### Soo ... stored procedures :D
+
+#### Could you express the following as Arel... ?
     ActiveRecord::Base.connection.execute "select id, (select * from financial.balance(u.id, true)) as bal from sf_guard_user as u where u.id = 109"
     ActiveRecord::Base.connection.execute "select id, (select * from financial.account_ref(u.id)) as bal from sf_guard_user as u where u.id = 109"
 
