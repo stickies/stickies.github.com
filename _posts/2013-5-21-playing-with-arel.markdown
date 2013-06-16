@@ -3,7 +3,6 @@ layout: stickie
 title: Playing with arel
 meta: Arel, ruby
 ---
-
 ### users table stuff
 
     def arex query
