@@ -19,19 +19,20 @@ I'm working on a project that involves using d3 to create maps, I want to use pr
 
 Given I have a base prototype:
 
-    function Map(attrs) {}
-    Map.prototype.setProjection = function(attrs){}
-
-And an object that inherits properties from map:
-
-    function MiniMap(attrs){
-      Map.call(this);
+    function Map(attrs) 
       this.scale = 2000;
       this.width = 500;
       this.height = 800;
       this.center = [0, 55.4];
       this.rotate = [4.4, 0];
       this.parallels = [50, 60];
+    }
+    Map.prototype.setProjection = function(attrs){}
+
+And an object that inherits properties and methods from map:
+
+    function MiniMap(attrs){
+      Map.call(this);
 
       this.setProjection();
     }
