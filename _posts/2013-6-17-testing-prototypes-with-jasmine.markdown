@@ -1,6 +1,6 @@
 ---
 layout: stickie
-title: Using Jasmine js to test prototype driven js with spies
+title: Using Jasmine to test drive prototypes
 meta: javascript, jasmine, testing, prototype
 ---
 
