@@ -14,7 +14,7 @@ We have been using [jasmine](http://pivotal.github.io/jasmine/) at work in our m
     gem 'guard-jasmine-headless-webkit'
     gem 'guard-rails-assets'
 
-# The subject
+#### The subject
 I'm working on a project that involves using d3 to create maps, I want to use prototyical inheritance to make my map solution reusable and flexible. I want to test that the code works and that the maps are generated correctly.
 
 Given I have a base prototype:
