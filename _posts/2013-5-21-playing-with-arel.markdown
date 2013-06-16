@@ -64,6 +64,7 @@ UPDATNG TABLES
     ActiveRecord::Base.connection.execute "select id, (select * from financial.account_ref(u.id)) as bal from sf_guard_user as u where u.id = 109"
 
 And the answer, as it turns out, is yes, somewhat ...
+
     users = Arel::Table.new(:sf_guard_user)
     users.table_alias = 'u'
 
