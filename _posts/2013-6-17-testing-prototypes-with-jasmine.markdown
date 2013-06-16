@@ -47,23 +47,23 @@ To test the prototype there are a couple of different approaches you can use, fi
     //= require maps/application.js
 
     describe("MiniMap", function(){
-      var lender_mini_map = null;
+      var mini_map = null;
 
       beforeEach(function() {
         spyOn(Map, 'call').andCallThrough()
         spyOn(Map.prototype, 'setProjection').andCallFake(function(){});
-        lender_mini_map = new MiniMap({lender_id:1});
+        mini_map = new MiniMap({id:1});
       });
 
       describe("build a map", function(){
         it("should have mini map attributes", function(){
-          expect( lender_mini_map.scale ).toEqual(2000)
-          expect( lender_mini_map.width ).toEqual(500)
-          expect( lender_mini_map.height ).toEqual(800)
+          expect( mini_map.scale ).toEqual(2000)
+          expect( mini_map.width ).toEqual(500)
+          expect( mini_map.height ).toEqual(800)
 
-          expect( lender_mini_map.center ).toEqual([0, 55.4]);
-          expect( lender_mini_map.rotate ).toEqual([4.4, 0]);
-          expect( lender_mini_map.parallels ).toEqual([50, 60]);
+          expect( mini_map.center ).toEqual([0, 55.4]);
+          expect( mini_map.rotate ).toEqual([4.4, 0]);
+          expect( mini_map.parallels ).toEqual([50, 60]);
 
           expect(Map.call).toHaveBeenCalled();
           expect( Map.prototype.setProjection ).toHaveBeenCalled();
@@ -77,8 +77,8 @@ Secondly, if you want, you could stub out the whole prototype with a mock/spy ob
 
     //= require maps/lenders/application.js
 
-    describe("LenderMiniMap", function(){
-      var MapSpy, lender_mini_map = null;
+    describe("MiniMap", function(){
+      var MapSpy, mini_map = null;
 
       beforeEach(function() {
         MapSpy = jasmine.createSpyObj('Map', ['setSvg',·
@@ -97,29 +97,29 @@ Secondly, if you want, you could stub out the whole prototype with a mock/spy ob
 
         Map = MapSpy;
         MapSpy.prototype = MapSpy;
-        LenderMiniMap.prototype = MapSpy
+        MiniMap.prototype = MapSpy
 
         // spyOn(Map, 'call').andCallThrough();
         // spyOn(Map.prototype, 'setProjection').andCallThrough();
         // spyOn(Map.prototype, 'setPath').andCallThrough();
         // spyOn(Map.prototype, 'setSvg').andCallThrough();
-        lender_mini_map = new LenderMiniMap({lender_id:1});
+        mini_map = new MiniMap({id:1});
       });
 
       describe("build a map", function(){
         it("should have mini map attributes", function(){
-          expect( lender_mini_map.scale ).toEqual(2000)
-          expect( lender_mini_map.width ).toEqual(500)
-          expect( lender_mini_map.height ).toEqual(800)
+          expect( mini_map.scale ).toEqual(2000)
+          expect( mini_map.width ).toEqual(500)
+          expect( mini_map.height ).toEqual(800)
 
-          expect( lender_mini_map.center ).toEqual([0, 55.4]);
-          expect( lender_mini_map.rotate ).toEqual([4.4, 0]);
-          expect( lender_mini_map.parallels ).toEqual([50, 60]);
+          expect( mini_map.center ).toEqual([0, 55.4]);
+          expect( mini_map.rotate ).toEqual([4.4, 0]);
+          expect( mini_map.parallels ).toEqual([50, 60]);
 
           expect(Map.call).toHaveBeenCalled();
           expect( Map.prototype.setProjection ).toHaveBeenCalled();
           expect( Map.prototype.setPath ).toHaveBeenCalled();
-          expect( Map.prototype.setSvg ).toHaveBeenCalledWith('lender_mini_map');
+          expect( Map.prototype.setSvg ).toHaveBeenCalledWith('mini_map');
         });
       });
 
