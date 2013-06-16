@@ -14,11 +14,20 @@ We have been using [jasmine](http://pivotal.github.io/jasmine/) at work in our m
     gem 'guard-jasmine-headless-webkit'
     gem 'guard-rails-assets'
 
-To test prototype:
+# The subject
+I'm working on a project that involves using d3 to create maps, I want to use prototyical inheritance to make my map solution reusable and flexible. I want to test that the code works and that the maps are generated correctly.
 
-    //= require maps/lenders/application.js
+Given I have a base prototype:
+    Map()
 
-    describe("LenderStandardMap", function(){
+And an object that inherits properties from map:
+    MiniMap()
+
+To test the prototype there are a couple of different approaches you can use:
+
+    //= require maps/application.js
+
+    describe("MiniMap", function(){
       var MapSpy, d3, lender_mini_map = null;
 
       beforeEach(function() {
@@ -30,11 +39,11 @@ To test prototype:
                                            'buildBase',
                                            'call', 'prototype']
                                   )
-        // LenderMiniMap.prototype = MapSpy
+        // MiniMap.prototype = MapSpy
 
         spyOn(Map, 'call').andCallThrough()
         spyOn(Map.prototype, 'setProjection').andCallFake(function(){});
-        lender_mini_map = new LenderMiniMap({lender_id:1});
+        lender_mini_map = new MiniMap({lender_id:1});
       });
 
       describe("build a map", function(){
