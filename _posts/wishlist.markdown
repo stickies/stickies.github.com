@@ -13,3 +13,4 @@ meta: wishlist, macosx, vim, plugins
 
 2. A rake task that will let you see if anybody else is currently deploying to the environment that you want to deploy to, or a lock in capistrano that will stop you deploying if someone else is deploying stuff
 
+2. A windowing standard that would let terminals and editors share the same set of windowing and tabbing commands.

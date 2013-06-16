@@ -1,10 +1,11 @@
 ---
 layout: stickie
-title: A credible alternative to tmux vim?
+title:  command line setups and alternatives.
 meta: Vim-7.3
 ---
 
 {{title}}
+As a programmer it is important to try and maximise your productivity, I find that the less I depend on the mouse, the better my productivity. There are of course many tools out there which can help your fingers to never leave the keyboard, and I'd like to delve into few set ups to compare them.
 
 I've been a user of macvim, terminal, and the macosx navigation system for a few years now. Over time I've built up a workflow that involves many different tools, a shrinking dependency on the mouse and a plethora of shortcut combo's that I find have helped imrove my workflow over time.
 

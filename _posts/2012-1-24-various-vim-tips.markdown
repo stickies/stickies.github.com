@@ -8,6 +8,21 @@ meta: git, vim, merge, conflict
 ## VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM VIM
 
 ### Fave commands
+Give match data to grep:
+
+    g* ( with cursor over match candidate )
+    :grep Ctrl-R / ## to paste the buffer
+
+Quickly navigate the quicklist:
+iIf you've been using Vim grep.
+
+    :cn # next match
+    :cp # previous match
+
+    # Then, so you don't have to keep stretching for the command
+    @: # repeat the last
+    @@ # keep on repeating
+
 Save all buffers:
 
     wa
