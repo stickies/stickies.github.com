@@ -43,7 +43,7 @@ UPDATNG TABLES
     crudder = Arel::SelectManager.new users.engine
 
     crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
-    #=> "UPDATE \"sf_guard_user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"sf_guard_user\".\"id\" = 1"
+    => "UPDATE \"sf_guard_user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"sf_guard_user\".\"id\" = 1"
 
     profiles = Arel::Table.new(:sf_guard_user_profile)
     user_groups = Arel::Table.new(:sf_guard_user_group)
@@ -123,7 +123,7 @@ Arel::VERSION   Arel::Visitors
 [58] pry(main)> accref = Arel::Z
 
 
-## Using arel for data analysis
+### Using arel for data analysis
 
 The nice thing about active record is that it works for mvc really well
 But if you want to do data analysis, such as working out the function of some data, it's not so good
