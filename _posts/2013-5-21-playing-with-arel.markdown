@@ -9,7 +9,7 @@ meta: Arel, ruby
       ActiveRecord::Base.connection.execute query
     end
 
-    users = Arel::Table.new(:sf_guard_user)
+    users = Arel::Table.new(:user)
     basic_query = users.project(Arel.sql(sql('*'))) # select all fields
     basic_query = users.project(users[:id]) # select one field
 
@@ -22,15 +22,15 @@ specify cartesian subset
     specific_query = users.project([users[:id], users[:username]]).where(users[:id].eq(1))
 
 #### ... with a join, can get tricky
-    join_query = users.project([users[:id], users[:username]]).join(:sf_guard_user_profile).on(users[:id].eq('sf_guard_user_profile.user_id'))
+    join_query = users.project([users[:id], users[:username]]).join(:user_profile).on(users[:id].eq('user_profile.user_id'))
 
 Returns ...
 
-    "SELECT \"sf_guard_user\".\"id\", \"sf_guard_user\".\"username\" FROM \"sf_guard_user\" INNER JOIN 'sf_guard_user_profile' ON \"sf_guard_user\".\"id\" = 0"
+    "SELECT \"user\".\"id\", \"user\".\"username\" FROM \"user\" INNER JOIN 'user_profile' ON \"user\".\"id\" = 0"
 
 using additional Arel tables seems to clear this up
 
-    profiles = Arel::Table.new(:sf_guard_user_profile)
+    profiles = Arel::Table.new(:user_profile)
 
     join_query = users.project([users[:id], users[:username]]).join(profiles).on(users[:id].eq(profiles['user_id']))
 
@@ -47,10 +47,10 @@ UPDATNG TABLES
     crudder = Arel::SelectManager.new users.engine
 
     crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
-    #=> "UPDATE \"sf_guard_user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"sf_guard_user\".\"id\" = 1"
+    #=> "UPDATE \"user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"user\".\"id\" = 1"
 
-    profiles = Arel::Table.new(:sf_guard_user_profile)
-    user_groups = Arel::Table.new(:sf_guard_user_group)
+    profiles = Arel::Table.new(:user_profile)
+    user_groups = Arel::Table.new(:user_group)
 
 #### Get lender profiles
     profiles.project(Arel.star).join(user_groups).on(user_groups[:user_id].eq(profiles[:user_id])).where(user_groups[:group_id].eq(3))
@@ -60,17 +60,16 @@ UPDATNG TABLES
 ### Soo ... stored procedures :D
 
 #### Could you express the following as Arel... ?
-    ActiveRecord::Base.connection.execute "select id, (select * from financial.balance(u.id, true)) as bal from sf_guard_user as u where u.id = 109"
-    ActiveRecord::Base.connection.execute "select id, (select * from financial.account_ref(u.id)) as bal from sf_guard_user as u where u.id = 109"
+    ActiveRecord::Base.connection.execute "select id, (select * from account_ref(u.id)) as bal from user as u where u.id = 109"
 
 And the answer, as it turns out, is yes, somewhat ...
 
-    users = Arel::Table.new(:sf_guard_user)
+    users = Arel::Table.new(:user)
     users.table_alias = 'u'
 
     manager = Arel::SelectManager.new users.engine
               manager.project Arel.star
-              manager.from Arel.sql("financial.account_ref(#{users.table_alias}.id)")
+              manager.from Arel.sql("account_ref(#{users.table_alias}.id)")
               # as = manager.as(Arel.sql('bal'))
 
 IN sql you have column aliases (AS) and table (or *relation*) aliases (table_alias)
@@ -79,12 +78,12 @@ IN sql you have column aliases (AS) and table (or *relation*) aliases (table_ali
 
  sadly this is considerably more verbose than just using connection.execute with esql
 
-    accounts = Arel::Table.new("financial.account")
+    accounts = Arel::Table.new("account")
 
 Some failed experiements ....
 the answer turned out to be: users.table_alias = 'u', see above
 
-          # try to create an alias of u for sf_guard_user
+          # try to create an alias of u for user
           # users_manager = Arel::SelectManager.new users.engine
           # users_manager.from(users)#.as('u')
           # users_as = users_manager.as(Arel.sql('u'))
