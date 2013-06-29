@@ -5,15 +5,19 @@ meta: Arel, ruby
 ---
 ### users table stuff
 
+I like to use an 'arex' helper method to wrap arbitrary active record queries...
+
     def arex query
       ActiveRecord::Base.connection.execute query
     end
+
+Then wrap the database table you want in an arel table to start composing your query:
 
     users = Arel::Table.new(:user)
     basic_query = users.project(Arel.sql(sql('*'))) # select all fields
     basic_query = users.project(users[:id]) # select one field
 
-specify cartesian subset
+specify fields
 
     specific_query = users.project([users[:id], users[:username]])
 
