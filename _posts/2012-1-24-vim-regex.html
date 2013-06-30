@@ -1,0 +1,118 @@
+---
+layout: stickie
+title: Vim regex stuff
+meta:
+---
+<h2>
+{{title}}
+</h2>
+<p>
+This is an example of how you can use vim to do multi file search and replace
+</p>
+<p>
+This command is an example of how you group spaces in vim and use them in a multi line search replace
+</p>
+<p>
+args app/views/cms_pages/**/*
+</p>
+<pre><code>
+  argdo %s/\(\s*\)\(\.top_margin\)\n\(\s*\)\(\.span[8|9|16]\)/\1\212\r\3\4/e | update
+</code></pre>
+
+
+<pre><code>
+  %s/\(\s\s\s\s\.row\.top_margin\)\n/\112\r/e | update
+  argdo %s/\(\s\s\s\s\.row\.top_margin\)\n/\112\r/e | update
+  %s/\(\s\)
+  %s/\(\s*\)\(\.top_margin\)\n\(\s*\)\(\.span[8|9|16]*\)/\3
+  %s/\(\s*\)\(\.top_margin\)\n\(\s*\)\(\.span[8|9|16]*\)/\1\212\r\3
+  %s/\(\s*\)\(\.top_margin\)\n\(\s*\)\(\.span[8|9|16]*\)/\1\212\r\3/
+  argdo %s/\(\s*\)\(\.top_margin\)\n\(\s*\)\(\.span[8|9|16]*\)/\1\212\r\3\4/e | update
+  %s/\(\s*\)\(\.top_margin\)\n\(\s*\)\(\.span[8|9|16]+\)/\1\212\r\3\4/
+  %s/\(\s*\)\(\.top_margin\)\n\(\s*\)\(\.span8|9|16\)/\1\212\r\3\4/
+  %s/\(\s*\)\(\.top_margin\)\n\(\s*\)\(\.span[8|9|16]*\)/\1\212\r\3\4/
+</code></pre>
+
+
+<pre><code>
+/\(%button.btn.brand\)\n\(\s\)*%a\(.*\)\n\(\s\)*\(.*\)
+/.action-link\r\2%a.btn\3 \5
+</code></pre>
+
+<pre><code>
+/\(%button.btn.brand\)\n\(\s*\)%a\(.*\)\n\(\s\)*\(.*\)/\.action-link\r\2%a.btn\3 \5/
+</code></pre>
+
+<pre><code>
+371,378s/\(s*\)%\S\(\S\)\n/\2/
+</code></pre>
+
+<pre><code>
+371,378s/\(s*\)%\S\s\(\S\)\n/\2/
+371,378s/\(s*\)%\S\s\(\S*\)/\2/
+
+</code></pre>
+
+<pre><code>
+s/^\s*//
+</code></pre>
+
+<pre><code>
+s/^\s*\(\w
+</code></pre>
+
+<pre><code>
+s/^\s*\(\w*\)\r/\1/
+</code></pre>
+
+<pre><code>
+s/^\s*\(\w*\)\n/\1/
+</code></pre>
+
+<pre><code>
+43,46s/^\s*\(\w*\)\n/\1/
+</code></pre>
+
+<pre><code>
+s/^\s*\(\w*\)/\1/
+</code></pre>
+
+<pre><code>
+s/^\s*\(\w*\)/ \1/
+</code></pre>
+
+<pre><code>
+/%a/+,/%a/-s/%u/%BLAH/
+</code></pre>
+
+<pre><code>
+/%a{:href => ".*"}/+,/%a{:href => ".*"}/-s/%u/%BLAH/
+</code></pre>
+
+<pre><code>
+/%a{:href => ".*"}/+,/%a{:href => ".*"}/-s/%u/\%BLAH/
+</code></pre>
+
+<pre><code>
+/%a{:href => ".*"}/+,/%a{:href => ".*"}/-s:%u/%BLAH:
+</code></pre>
+
+<pre><code>
+s:(\s*)//
+</code></pre>
+
+<pre><code>
+s:(:s*)::
+</code></pre>
+
+<pre><code>
+s:(\s*)::
+</code></pre>
+
+<pre><code>
+s:\(\s*\)::
+w
+</code></pre>
+<pre><code>
+110,118s:^\(\s*\)[^%]\(\w*\):\2:
+</code></pre>
