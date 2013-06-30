@@ -80,8 +80,7 @@ and you can relax it a bit too
 
 <h2>Could you express the following as Arel... ?</h2>
 <pre>
-  ActiveRecord::Base.connection.execute "select id, (select * from financial.balance(u.id, true)) as bal from user as u where u.id = 109"
-  ActiveRecord::Base.connection.execute "select id, (select * from financial.account_ref(u.id)) as bal from user as u where u.id = 109"
+  ActiveRecord::Base.connection.execute "select id, (select * from my_schema.account_ref(u.id)) as bal from user as u where u.id = 109"
 </pre>
 <p>
 And the answer, as it turns out, is yes, somewhat ...
@@ -92,7 +91,7 @@ And the answer, as it turns out, is yes, somewhat ...
 
   manager = Arel::SelectManager.new users.engine
             manager.project Arel.star
-            manager.from Arel.sql("financial.account_ref(#{users.table_alias}.id)")
+            manager.from Arel.sql("my_schema.account_ref(#{users.table_alias}.id)")
             # as = manager.as(Arel.sql('bal'))
 </pre>
 <p>
