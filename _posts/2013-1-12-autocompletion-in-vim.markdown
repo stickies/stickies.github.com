@@ -44,7 +44,7 @@ Now you have autocompletion with 235886 words at your disposal! You can actually
 #### The thesaurus
 Unfortunately, the thesaurus on a Mac is stored in a binary format, so is inaccessible to Vim. Instead, check out [https://github.com/sgur/thesaurus-gutenberg.vim](https://github.com/sgur/thesaurus-gutenberg.vim), it's a pre-defined thesaurus for Vim.
 
-** Update: not sure if this plugin works **
+\*\* Update: not sure if this plugin works \*\*
 #### Included files
 This option lets you include words from other files in the include path, if you use ctags, this is almost not necessary in my mind.
 

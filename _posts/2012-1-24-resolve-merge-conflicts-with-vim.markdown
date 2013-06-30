@@ -39,8 +39,10 @@ fugitive://path/to/project/.git//3/demo.js
 diffget
 
 ( with the unimpaired plugin )
-]c - next conflict
-[c - previous conflict
+
+\]c - next conflict
+
+\[c - previous conflict
 
 diffput
 

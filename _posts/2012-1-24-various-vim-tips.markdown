@@ -147,7 +147,7 @@ vim has integration with ctags for rapidly finding methods
 :sta my_thing --- to open in a split
 You can even use a regex to find matching
 
-:ta /^validates_*
+:ta /^validates_\*
 
 Then navigate through them
 
