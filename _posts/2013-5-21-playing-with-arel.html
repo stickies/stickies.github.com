@@ -3,112 +3,116 @@ layout: stickie
 title: Playing with arel
 meta: Arel, ruby
 ---
-<h2>users table stuff</h2>
-<pre><code>
-    def arex query
-      ActiveRecord::Base.connection.execute query
-    end
+<h3>users table stuff</h3>
 
-    users = Arel::Table.new(:sf_guard_user)
-    basic_query = users.project(Arel.sql(sql('*'))) # select all fields
-    basic_query = users.project(users[:id]) # select one field
-</code></pre>
 <p>
-specify cartesian subset
+I like to use an 'arex' helper method to wrap arbitrary active record queries...
 </p>
-<pre><code>
-    specific_query = users.project([users[:id], users[:username]])
-</code></pre>
+<pre>
+  def arex query
+    ActiveRecord::Base.connection.execute query
+  end
+
+  users = Arel::Table.new(:user)
+  basic_query = users.project(Arel.sql(sql('*'))) # select all fields
+  basic_query = users.project(users[:id]) # select one field
+</pre>
+<p>
+specify fields
+</p>
+<pre>
+  specific_query = users.project([users[:id], users[:username]])
+</pre>
 <p>
 ... with conditions
 </p>
-<pre><code>
-    specific_query = users.project([users[:id], users[:username]]).where(users[:id].eq(1))
-</code></pre>
+<pre>
+  specific_query = users.project([users[:id], users[:username]]).where(users[:id].eq(1))
+</pre>
 
 <h2>... with a join, can get tricky</h2>
-<pre><code>
-    join_query = users.project([users[:id], users[:username]]).join(:sf_guard_user_profile).on(users[:id].eq('sf_guard_user_profile.user_id'))
-</code></pre>
+<pre>
+  join_query = users.project([users[:id], users[:username]]).join(:user_profile).on(users[:id].eq('user_profile.user_id'))
+</pre>
 <p>
 Returns ...
 </p>
-<pre><code>
-    "SELECT \"sf_guard_user\".\"id\", \"sf_guard_user\".\"username\" FROM \"sf_guard_user\" INNER JOIN 'sf_guard_user_profile' ON \"sf_guard_user\".\"id\" = 0"
-</code></pre>
+<pre>
+  "SELECT \"user\".\"id\", \"user\".\"username\" FROM \"user\" INNER JOIN 'user_profile' ON \"user\".\"id\" = 0"
+</pre>
 <p>
 using additional Arel tables seems to clear this up
 </p>
-<pre><code>
-    profiles = Arel::Table.new(:sf_guard_user_profile)
+<pre>
+  profiles = Arel::Table.new(:user_profile)
 
-    join_query = users.project([users[:id], users[:username]]).join(profiles).on(users[:id].eq(profiles['user_id']))
-</code></pre>
+  join_query = users.project([users[:id], users[:username]]).join(profiles).on(users[:id].eq(profiles['user_id']))
+</pre>
 <p>
 and you can relax it a bit too
 </p>
-<pre><code>
-    join_query = users.project('*').join(profiles).on(users[:id].eq(profiles['user_id']))
-</code></pre>
+<pre>
+  join_query = users.project('*').join(profiles).on(users[:id].eq(profiles['user_id']))
+</pre>
 <h2>get a relation's columns</h2>
-<pre><code>
-    users.columns.map(&:name)
-</code></pre>
+<pre>
+  users.columns.map(&:name)
+</pre>
 
 <h2>UPDATNG TABLES</h2>
-<pre><code>
-    crudder = Arel::SelectManager.new users.engine
+<pre>
+  crudder = Arel::SelectManager.new users.engine
 
-    crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
-    #=> "UPDATE \"sf_guard_user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"sf_guard_user\".\"id\" = 1"
+  crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
+  #=> "UPDATE \"user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"user\".\"id\" = 1"
 
-    profiles = Arel::Table.new(:sf_guard_user_profile)
-    user_groups = Arel::Table.new(:sf_guard_user_group)
-</code></pre>
+  profiles = Arel::Table.new(:user_profile)
+  user_groups = Arel::Table.new(:user_group)
+</pre>
 
 <h2>Get lender profiles</h2>
-<pre><code>
-    profiles.project(Arel.star).join(user_groups).on(user_groups[:user_id].eq(profiles[:user_id])).where(user_groups[:group_id].eq(3))
+<pre>
+  profiles.project(Arel.star).join(user_groups).on(user_groups[:user_id].eq(profiles[:user_id])).where(user_groups[:group_id].eq(3))
 
-    manager = Arel::SelectManager.new Table.engine
-</code></pre>
+  manager = Arel::SelectManager.new Table.engine
+</pre>
 <h2>Soo ... stored procedures :D</h2>
 
 <h2>Could you express the following as Arel... ?</h2>
-<pre><code>
-    ActiveRecord::Base.connection.execute "select id, (select * from financial.balance(u.id, true)) as bal from sf_guard_user as u where u.id = 109"
-    ActiveRecord::Base.connection.execute "select id, (select * from financial.account_ref(u.id)) as bal from sf_guard_user as u where u.id = 109"
-</code></pre>
+<pre>
+  ActiveRecord::Base.connection.execute "select id, (select * from financial.balance(u.id, true)) as bal from user as u where u.id = 109"
+  ActiveRecord::Base.connection.execute "select id, (select * from financial.account_ref(u.id)) as bal from user as u where u.id = 109"
+</pre>
 <p>
 And the answer, as it turns out, is yes, somewhat ...
 </p>
-<pre><code>
-    users = Arel::Table.new(:sf_guard_user)
-    users.table_alias = 'u'
+<pre>
+  users = Arel::Table.new(:user)
+  users.table_alias = 'u'
 
-    manager = Arel::SelectManager.new users.engine
-              manager.project Arel.star
-              manager.from Arel.sql("financial.account_ref(#{users.table_alias}.id)")
-              # as = manager.as(Arel.sql('bal'))
-</code></pre>
+  manager = Arel::SelectManager.new users.engine
+            manager.project Arel.star
+            manager.from Arel.sql("financial.account_ref(#{users.table_alias}.id)")
+            # as = manager.as(Arel.sql('bal'))
+</pre>
 <p>
 In sql you have column aliases (AS) and table (or *relation*) aliases (table_alias)
 </p>
-<pre><code>
-    users.project([users[:id], manager.as('bal')])#.from('u')#.as(Arel.sql('u'))
-    arex users.project([users[:id], manager.as('bal')]).where(users[:id].eq(109)).to_sql
-</code></pre>
+<pre>
+  users.project([users[:id], manager.as('bal')])#.from('u')#.as(Arel.sql('u'))
+  arex users.project([users[:id], manager.as('bal')]).where(users[:id].eq(109)).to_sql
+</pre>
 <p>
 sadly this is considerably more verbose than just using connection.execute with esql
 </p>
-<pre><code>
-    accounts = Arel::Table.new("financial.account")
-</code></pre>
+<pre>
+  accounts = Arel::Table.new("financial.account")
+</pre>
 <p>
 Some failed experiements ....
 the answer turned out to be: users.table_alias = 'u', see above
 
-          # try to create an alias of u for sf_guard_user
+          # try to create an alias of u for user
           # users_manager = Arel::SelectManager.new users.engine
           # users_manager.from(users)#.as('u')
           # users_as = users_manager.as(Arel.sql('u'))
@@ -123,7 +127,7 @@ the answer turned out to be: users.table_alias = 'u', see above
           <p>
 The top level Arel classes
 </p>
-<pre><code>
+<pre>
 [58] pry(main)> accref = Arel::A
 Arel::AliasPredication  Arel::Attribute         Arel::Attributes
 [58] pry(main)> accref = Arel::C
@@ -153,7 +157,7 @@ Arel::UpdateManager
 [58] pry(main)> accref = Arel::V
 Arel::VERSION   Arel::Visitors
 [58] pry(main)> accref = Arel::Z
-</code></pre>
+</pre>
 
 <h2>Using arel for data analysis</h2>
 
@@ -164,38 +168,38 @@ But if you want to do data analysis, such as working out the function of some da
 <p>
 So if we want to analyse bidding data:
 </p>
-<pre><code>
-    bids = Arel::Table.new(Bid.table_name)
-    res = arex bids.project(bids[:id]).where(bids[:id].eq(1)).to_sql
-</code></pre>
+<pre>
+  bids = Arel::Table.new(Bid.table_name)
+  res = arex bids.project(bids[:id]).where(bids[:id].eq(1)).to_sql
+</pre>
 <p>
 How many bids placed by day of the week
 </p>
-<pre><code>
-    res = arex bids.project(bids[:id].count).group("extract(dow from #{bids.name}.created_at)").to_sql
-</code></pre>
+<pre>
+  res = arex bids.project(bids[:id].count).group("extract(dow from #{bids.name}.created_at)").to_sql
+</pre>
 <p>
 ... or day of the year
 </p>
-<pre><code>
-    res = arex bids.project(bids[:id].count).group("extract(doy from #{bids.name}.created_at)").to_sql
-</code></pre>
+<pre>
+  res = arex bids.project(bids[:id].count).group("extract(doy from #{bids.name}.created_at)").to_sql
+</pre>
 <p>
 add in the date as a field, and get the number per month since launch
 </p>
-<pre><code>
-    res = arex bids.project(bids[:id].count, "date_trunc('month', #{bids.name}.created_at) as gdate").group("gdate").to_sql
-</code></pre>
+<pre>
+  res = arex bids.project(bids[:id].count, "date_trunc('month', #{bids.name}.created_at) as gdate").group("gdate").to_sql
+</pre>
 <p>
 get the number per day ...
 </p>
-<pre><code>
-    res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date").group("group_date").to_sql
-</code></pre>
+<pre>
+  res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date").group("group_date").to_sql
+</pre>
 <p>
 add in the status of the bid ...
 </p>
-<pre><code>
-    res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date", bids[:status]).group("group_date", bids[:status]).to_sql
-</code></pre>
+<pre>
+  res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date", bids[:status]).group("group_date", bids[:status]).to_sql
+</pre>
 
