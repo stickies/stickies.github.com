@@ -30,7 +30,7 @@ specify fields
   specific_query = users.project([users[:id], users[:username]]).where(users[:id].eq(1))
 </pre>
 
-<h2>... with a join, can get tricky</h2>
+<p>... with a join, can get tricky</p>
 <pre>
   join_query = users.project([users[:id], users[:username]]).join(:user_profile).on(users[:id].eq('user_profile.user_id'))
 </pre>
@@ -59,7 +59,7 @@ and you can relax it a bit too
   users.columns.map(&:name)
 </pre>
 
-<h2>UPDATNG TABLES</h2>
+<h2>Updating tables</h2>
 <pre>
   crudder = Arel::SelectManager.new users.engine
 
