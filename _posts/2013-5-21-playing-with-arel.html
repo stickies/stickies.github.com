@@ -66,8 +66,6 @@ and you can relax it a bit too
   crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
   #=> "UPDATE \"user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"user\".\"id\" = 1"
 
-  profiles = Arel::Table.new(:user_profile)
-  user_groups = Arel::Table.new(:user_group)
 </pre>
 
 <h4>Get join table relations...</h4>
