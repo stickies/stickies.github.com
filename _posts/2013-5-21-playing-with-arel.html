@@ -54,7 +54,7 @@ and you can relax it a bit too
 <pre>
   join_query = users.project('*').join(profiles).on(users[:id].eq(profiles['user_id']))
 </pre>
-<h2>get a relation's columns</h2>
+<h4>get a relation's columns</h4>
 <pre>
   users.columns.map(&:name)
 </pre>
