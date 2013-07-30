@@ -70,11 +70,9 @@ and you can relax it a bit too
   user_groups = Arel::Table.new(:user_group)
 </pre>
 
-<h2>Get lender profiles</h2>
+<h4>Get join table relations...</h4>
 <pre>
   profiles.project(Arel.star).join(user_groups).on(user_groups[:user_id].eq(profiles[:user_id])).where(user_groups[:group_id].eq(3))
-
-  manager = Arel::SelectManager.new Table.engine
 </pre>
 <h4>So ... stored procedures :D</h4>
 
