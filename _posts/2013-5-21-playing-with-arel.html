@@ -76,9 +76,9 @@ and you can relax it a bit too
 
   manager = Arel::SelectManager.new Table.engine
 </pre>
-<h2>Soo ... stored procedures :D</h2>
+<h4>So ... stored procedures :D</h4>
 
-<h2>Could you express the following as Arel... ?</h2>
+<p>Could you express the following as Arel... ?</p>
 <pre>
   ActiveRecord::Base.connection.execute "select id, (select * from my_schema.account_ref(u.id)) as bal from user as u where u.id = 109"
 </pre>
