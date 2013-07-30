@@ -92,20 +92,20 @@ And the answer, as it turns out, is yes, somewhat ...
   manager = Arel::SelectManager.new users.engine
             manager.project Arel.star
             manager.from Arel.sql("my_schema.account_ref(#{users.table_alias}.id)")
-            # as = manager.as(Arel.sql('bal'))
+            
 </pre>
 <p>
 In sql you have column aliases (AS) and table (or *relation*) aliases (table_alias)
 </p>
 <pre>
-  users.project([users[:id], manager.as('bal')])#.from('u')#.as(Arel.sql('u'))
+  users.project([users[:id], manager.as('bal')])
   arex users.project([users[:id], manager.as('bal')]).where(users[:id].eq(109)).to_sql
 </pre>
 <p>
-sadly this is considerably more verbose than just using connection.execute with esql
+sadly this is considerably more verbose than just using connection.execute with the sql
 </p>
 <pre>
-  accounts = Arel::Table.new("financial.account")
+  arex "select * from my_schema.account_ref(42)"
 </pre>
 <p>
 Some failed experiements ....
@@ -113,7 +113,7 @@ the answer turned out to be: users.table_alias = 'u', see above
 
           # try to create an alias of u for user
           # users_manager = Arel::SelectManager.new users.engine
-          # users_manager.from(users)#.as('u')
+          # users_manager.from(users)
           # users_as = users_manager.as(Arel.sql('u'))
           # users_manager.project([users[:id], manager.as('bal')]).as('u').where(users[:id].eq(109)).to_sql
 
