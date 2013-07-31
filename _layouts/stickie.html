@@ -16,57 +16,54 @@
           {{page.title}}
       </h2>
         {{content}}
-        <div id="disqus_thread"></div>
-<script type="text/javascript" class="juvia">
-(function() {
-    var options = {
-        container    : '(a CSS path)',
-        site_key     : 'rzjxsabo0ji34jgb9ijqpnuux200nyg',
-        topic_key    : location.pathname,
-        topic_url    : location.href,
-        topic_title  : document.title || location.href,
-        include_base : !window.Juvia,
-        include_css  : !window.Juvia,
-        comment_order: 'latest-first'
-    };
+        <script type="text/javascript" class="juvia">
+        (function() {
+            var options = {
+                container    : '(a CSS path)',
+                site_key     : 'rzjxsabo0ji34jgb9ijqpnuux200nyg',
+                topic_key    : location.pathname,
+                topic_url    : location.href,
+                topic_title  : document.title || location.href,
+                include_base : !window.Juvia,
+                include_css  : !window.Juvia,
+                comment_order: 'latest-first'
+            };
 
-    function makeQueryString(options) {
-        var key, params = [];
-        for (key in options) {
-            params.push(
-                encodeURIComponent(key) +
-                '=' +
-                encodeURIComponent(options[key]));
-        }
-        return params.join('&');
-    }
+            function makeQueryString(options) {
+                var key, params = [];
+                for (key in options) {
+                    params.push(
+                        encodeURIComponent(key) +
+                        '=' +
+                        encodeURIComponent(options[key]));
+                }
+                return params.join('&');
+            }
 
-    function makeApiUrl(options) {
-        // Makes sure that each call generates a unique URL, otherwise
-        // the browser may not actually perform the request.
-        if (!('_juviaRequestCounter' in window)) {
-            window._juviaRequestCounter = 0;
-        }
+            function makeApiUrl(options) {
+                // Makes sure that each call generates a unique URL, otherwise
+                // the browser may not actually perform the request.
+                if (!('_juviaRequestCounter' in window)) {
+                    window._juviaRequestCounter = 0;
+                }
 
-        var result =
-            'http://217.199.161.117:3000/api/show_topic.js' +
-            '?_c=' + window._juviaRequestCounter +
-            '&' + makeQueryString(options);
-        window._juviaRequestCounter++;
-        return result;
-    }
+                var result =
+                    'http://217.199.161.117:3000/api/show_topic.js' +
+                    '?_c=' + window._juviaRequestCounter +
+                    '&' + makeQueryString(options);
+                window._juviaRequestCounter++;
+                return result;
+            }
 
-    var s       = document.createElement('script');
-    s.async     = true;
-    s.type      = 'text/javascript';
-    s.className = 'juvia';
-    s.src       = makeApiUrl(options);
-    (document.getElementsByTagName('head')[0] ||
-     document.getElementsByTagName('body')[0]).appendChild(s);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a> 
+            var s       = document.createElement('script');
+            s.async     = true;
+            s.type      = 'text/javascript';
+            s.className = 'juvia';
+            s.src       = makeApiUrl(options);
+            (document.getElementsByTagName('head')[0] ||
+             document.getElementsByTagName('body')[0]).appendChild(s);
+        })();
+        </script>
       </div>
     </div>
   </div>
