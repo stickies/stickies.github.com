@@ -1,0 +1,66 @@
+---
+layout: stickie
+title: BDD with Stored Procedures
+meta: Stored Procedures, ruby, postgresql, rspec
+---
+<h1>
+Test driving stored procedures using Rspec.
+</h1>
+<p>
+In the ruby world, stored procedures have a bad name, DHH mocks them, Rails has little or no support for them, they are just not the Rails / Agile ‘Way’ of doing things.
+</p>
+<p>
+Sometimes though, you just can’t get away from them, be it through some legacy system that uses them for reports, or, god forbid, the developers thought it would be a good idea to write parts of the application in compiled SQL. Perhaps the idea of compiling inaccessible, unsearchable, non modular, untestable, procedural bits of almost Fortran like application logic into some system outside your application codebase for admittedly faster processing, just gets you going. If any of the above fits your description, read on.
+</p>
+<h4>
+Options
+</h4>
+<p>
+I spend a substantial amount ( I can’t say ‘lots’ without sounding like a loser ) of time working with stored procedures. Yes, in the context of a large polyglot application that has both ruby and php ... AND stored procedures calling the shots, it can get painful. However, it’s a myth to say you can’t BDD stored procs. It takes a bit of extra preparation, and there are limitations, but its not a lost cause.
+</p>
+
+<h2>
+Introducing … PgTap
+</h2>
+<p>
+…
+</p>
+
+<h2>
+Introducing Rspec!
+</h2>
+
+<p>
+You can easily execute a compiled stored procedure from within Rspec by just using
+<pre>
+  ActiveRecord::Base.connection.execute(“select * from dodgy.jank_stored_proc()”)
+</pre>
+
+<b>
+But stored procedures depend on lots of tables and associations - I hear you cry....
+</b>
+
+<b>
+SO WHAT, thats what factories are for!
+</b>
+
+<h3>
+Factory Data Signature
+</h3>
+<p>
+Often a stored procedure is used to generate some table or return some result based on existing data in your database, if you are making a modification to a potentially complex stored proc, this can get interesting, in order to get the stored proc to run, you will need to generate the correct data signature. If you’re building the proc from scratch, you already know which data you will need to generate so this part will be easy.
+</p>
+<b>
+But stored procedures are compiled …. I have to recompile them to test!
+</b>
+<p>
+Really? Is loading the sql file that contains your stored proc definition into a string and then executing it in a before block that difficult.
+</p>
+
+
+<h4>
+When is this useful?
+</h4>
+<p>
+As services scale, the time it takes to execute a stored procedure can increase exponentially as the amount of data in your system increases, if you have a proc that takes several hours to run in production, then making a change and then testing it can be a lengthy process, conversely, to deploy a change without testing it could prove fatal. A better solution is to write tests that use a very small subset of data, or several permutations of the data to test different behaviour.
+</p>
