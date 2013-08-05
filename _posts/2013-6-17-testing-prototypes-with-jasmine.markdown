@@ -2,6 +2,8 @@
 layout: stickie
 title: Using Jasmine to test drive prototypes
 meta: javascript, jasmine, testing, prototype
+categories: javascript, jasmine, testing, prototype
+tags: javascript, jasmine, testing, prototype
 ---
 
 {{title}}

@@ -2,6 +2,8 @@
 layout: stickie
 title: Autocompletion in Vim (Mac OSX)
 meta: Vim-7.3
+categories: vim editor
+tags: vim editor
 ---
 
 {{title}}
