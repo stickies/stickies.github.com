@@ -181,17 +181,10 @@ Failed examples:
 
 rspec ./spec/stored_procs/activate_defence_matrix_spec.rb:33 # the user report stored procedure activate the defence matrix should assign all the pilots to ion cannons
 </pre>
-<b>
-But stored procedures are compiled …. I have to recompile them to test!
-</b>
-<p>
-Rspec offers a nice feature called before(:all) do ...
-</p>
 
-
-<h4>
+<h3>
 When is this useful?
-</h4>
+</h3>
 <p>
 As services scale, the time it takes to execute a stored procedure can increase exponentially as the amount of data in your system increases, if you have a proc that takes several hours to run in production, then making a change and then testing it can be a lengthy process, conversely, to deploy a change without testing it could prove fatal. A better solution is to write tests that use a very small subset of data, or several permutations of the data to test different behaviour.
 </p>
