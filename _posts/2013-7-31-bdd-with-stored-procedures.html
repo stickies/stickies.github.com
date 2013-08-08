@@ -15,7 +15,7 @@ Sometimes though, you just can’t get away from them, be it through some legacy
 Options
 </h4>
 <p>
-I spend a substantial amount ( I can’t say ‘lots’ without sounding like a loser ) of time working with stored procedures. Yes, in the context of a large polyglot application that has both ruby and php ... AND stored procedures calling the shots, it can get painful. However, it’s a myth to say you can’t BDD stored procs. It takes a bit of extra preparation, and there are limitations, but its not a lost cause.
+I spend a substantial amount ( I can’t say ‘lots’ without sounding like a loser ) of time working with stored procedures. Yes, in the context of a large polyglot application that has both ruby and php ... AND stored procedures calling the shots, it can get painful. However, it’s a myth to say you can’t BDD stored procs. It takes a bit of extra preparation, and there are limitations, but it's not a lost cause.
 </p>
 
 <h3>
@@ -32,38 +32,99 @@ I spend a substantial amount ( I can’t say ‘lots’ without sounding like a 
 <p>
 You can easily execute a compiled stored procedure from within Rspec by just using
 <pre>
-  ActiveRecord::Base.connection.execute(“select * from dodgy.jank_stored_proc()”)
+  ActiveRecord::Base.connection.execute(“select * from hq.activate_defence_matrix()”)
 </pre>
 
 <q>
 "But stored procedures depend on lots of tables and associations" - I hear you cry....
 </q>
 <br>
-<b>
-SO WHAT says me, thats what factories are for!
-</b>
-
 <h3>
-Factory Data Signature
+Factory Data
 </h3>
 <p>
 Often a stored procedure is used to generate some table or return some result based on existing data in your database, if you are making a modification to a potentially complex stored proc, this can get interesting, in order to get the stored proc to run, you will need to generate the correct data signature. If you’re building the proc from scratch, you already know which data you will need to generate so this part will be easy.
 </p>
-<h4>For the given proc...</h4>
-<pre>
-SET search_path = report, public, pg_catalog;
---
--- Name: rebuild_loan_book_summary(); Type: FUNCTION; Schema: report; Owner: chris
---
 
-CREATE OR REPLACE FUNCTION rebuild_my_mega_report() RETURNS void
-    LANGUAGE plpgsql SECURITY DEFINER
-        AS $$
-        DECLARE
-          r record;
-        BEGIN
-        END
-        $$;
+<a href='https://github.com/stevemartin/bdd-with-stored-procs'>The example app</a>
+
+<h4>For the given starting spec...</h4>
+<pre>
+require 'spec_helper'
+
+describe 'the user report stored procedure' do
+  before(:all) do
+    @defence_matrix = File.read('db/functions/activate_defence_matrix.sql')
+    @res = ActiveRecord::Base.connection.execute @defence_matrix
+  end
+
+  it 'should rebuild the function' do
+    @res.should be_a PG::Result
+  end
+
+  it 'should exist' do
+    stored_proc_exists?('activate_defence_matrix').should == true
+  end
+
+
+  it 'should contain the stored proc' do
+    stored_proc_src("activate_defence_matrix").should == %q||
+  end
+end
+
+def arex sql
+  ActiveRecord::Base.connection.execute sql
+end
+
+def stored_proc_exists? name
+  res = arex("SELECT proname FROM pg_catalog.pg_proc WHERE proname = '#{name}'")
+  res = res.first
+  if res
+    return res['proname'] == name
+  else
+    false
+  end
+end
+
+
+def stored_proc_src name
+  res = arex("select prosrc from pg_catalog.pg_proc where proname = '#{name}';")
+  res = res.first
+  if res
+    return res['prosrc']
+  else
+    false
+  end
+
+end
+</pre>
+<h4>For the given starting proc...</h4>
+<pre>
+  SET search_path = hq, pg_catalog;
+  --
+  -- Name: activate_defence_matrix(); Type: FUNCTION; Schema: hq; Owner: steve
+  --
+
+  CREATE OR REPLACE FUNCTION hq.activate_defence_matrix() RETURNS void
+  LANGUAGE plpgsql SECURITY DEFINER
+  AS $$
+    DECLARE
+    BEGIN
+    END
+  $$;
+</pre>
+
+<p>Now, if you run the tests in the example app at commit <b>acba7a50d954a3ecd5b1fd99c5c533e0153815b9</b> You can see how we can start to iterate. The schema name for the proc you will need to add via a migration, so do this next</p>
+<pre>
+class CreateHqSchema < ActiveRecord::Migration
+  def up
+    execute 'CREATE SCHEMA hq'
+  end
+
+  def down
+    execute 'DROP SCHEMA hq'
+  end
+end
 </pre>
 <b>
 But stored procedures are compiled …. I have to recompile them to test!
