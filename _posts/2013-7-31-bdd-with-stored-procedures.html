@@ -19,14 +19,14 @@ I spend a substantial amount ( I can’t say ‘lots’ without sounding like a 
 </p>
 
 <h3>
-  Introducing … <a href='http://pgtap.org/'>PgTap</a>
+  Introducing … <a target='_blank' href='http://pgtap.org/'>PgTap</a>
 </h3>
 <p>
 … aaaand
 </p>
 
 <h3>
-Introducing Rspec!
+  Introducing <a href='http://rspec.info/' target='_blank'>Rspec!</a>
 </h3>
 
 <p>
@@ -35,12 +35,12 @@ You can easily execute a compiled stored procedure from within Rspec by just usi
   ActiveRecord::Base.connection.execute(“select * from dodgy.jank_stored_proc()”)
 </pre>
 
-<b>
-But stored procedures depend on lots of tables and associations - I hear you cry....
-</b>
+<q>
+"But stored procedures depend on lots of tables and associations" - I hear you cry....
+</q>
 <br>
 <b>
-SO WHAT, thats what factories are for!
+SO WHAT says me, thats what factories are for!
 </b>
 
 <h3>
@@ -49,11 +49,27 @@ Factory Data Signature
 <p>
 Often a stored procedure is used to generate some table or return some result based on existing data in your database, if you are making a modification to a potentially complex stored proc, this can get interesting, in order to get the stored proc to run, you will need to generate the correct data signature. If you’re building the proc from scratch, you already know which data you will need to generate so this part will be easy.
 </p>
+<h4>For the given proc...</h4>
+<pre>
+SET search_path = report, public, pg_catalog;
+--
+-- Name: rebuild_loan_book_summary(); Type: FUNCTION; Schema: report; Owner: chris
+--
+
+CREATE OR REPLACE FUNCTION rebuild_my_mega_report() RETURNS void
+    LANGUAGE plpgsql SECURITY DEFINER
+        AS $$
+        DECLARE
+          r record;
+        BEGIN
+        END
+        $$;
+</pre>
 <b>
 But stored procedures are compiled …. I have to recompile them to test!
 </b>
 <p>
-Really? Is loading the sql file that contains your stored proc definition into a string and then executing it in a before block that difficult?
+Rspec offers a nice feature called before(:all) do ...
 </p>
 
 
