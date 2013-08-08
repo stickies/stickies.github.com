@@ -46,7 +46,7 @@ Factory Data
 Often a stored procedure is used to generate some table or return some result based on existing data in your database, if you are making a modification to a potentially complex stored proc, this can get interesting, in order to get the stored proc to run, you will need to generate the correct data signature. If you’re building the proc from scratch, you already know which data you will need to generate so this part will be easy.
 </p>
 
-<a href='https://github.com/stevemartin/bdd-with-stored-procs'>The example app</a>
+<a target='_blank' href='https://github.com/stevemartin/bdd-with-stored-procs'>The example app</a>
 
 <h4>For the given starting spec...</h4>
 <pre>
@@ -156,7 +156,7 @@ So now we can add some logic to our stored proc and iterate on it until we have 
     end
   end
 </pre>
-<p>See <a href='https://github.com/stevemartin/bdd-with-stored-procs/commit/1433d0ebae7a6ea93481836cf8175b3378891b35'>1433d0ebae7a6ea934818</a> for specifics</p>
+<p>See <a target='_blank' href='https://github.com/stevemartin/bdd-with-stored-procs/commit/1433d0ebae7a6ea93481836cf8175b3378891b35'>1433d0ebae7a6ea934818</a> for specifics</p>
 <p>We should see an exception bubbling up when we run our tests, this is what we want! Immediate feedback!</p>
 <pre>
 ...F
@@ -172,7 +172,7 @@ Failures:
        QUERY:  SELECT id                FROM units WHERE type = 'cannon_pilot'
        CONTEXT:  PL/pgSQL function activate_defence_matrix() line 5 at SQL statement
        : select hq.activate_defence_matrix()
-     # ./spec/stored_procs/activate_defence_matrix_spec.rb:31:in `block (3 levels) in <top (required)>'
+     # ./spec/stored_procs/activate_defence_matrix_spec.rb:31:in `block (3 levels) in top (required)>'
 
 Finished in 0.05548 seconds
 4 examples, 1 failure
