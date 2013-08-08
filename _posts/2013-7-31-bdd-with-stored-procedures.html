@@ -126,6 +126,61 @@ class CreateHqSchema < ActiveRecord::Migration
   end
 end
 </pre>
+<p>
+So now we can add some logic to our stored proc and iterate on it until we have a working solution, say we add..
+</p>
+<pre>
+  SET search_path = hq, pg_catalog;
+  --
+  -- Name: activate_defence_matrix(); Type: FUNCTION; Schema: hq; Owner: steve
+  --
+
+  CREATE OR REPLACE FUNCTION hq.activate_defence_matrix() RETURNS void
+  LANGUAGE plpgsql SECURITY DEFINER
+  AS $$
+    DECLARE
+      pilot_ids integer[];
+    BEGIN
+      SELECT id INTO pilot_ids FROM units WHERE type = 'ion_cannon_pilot';
+    END
+  $$;
+</pre>
+<p>And an equivalent spec ...</p>
+<pre>
+  describe "execution" do
+    before do
+      @activate_defence_matrix = 'select hq.activate_defence_matrix()'
+    end
+    it 'should assign all the pilots to ion cannons' do
+      @activate = ActiveRecord::Base.connection.execute @activate_defence_matrix
+    end
+  end
+</pre>
+<p>See <a href='https://github.com/stevemartin/bdd-with-stored-procs/commit/1433d0ebae7a6ea93481836cf8175b3378891b35'>1433d0ebae7a6ea934818</a> for specifics</p>
+<p>We should see an exception bubbling up when we run our tests, this is what we want! Immediate feedback!</p>
+<pre>
+...F
+
+Failures:
+
+  1) the activate defence matrix stored proc execution should assign all the pilots to ion cannons
+     Failure/Error: @activate = ActiveRecord::Base.connection.execute @activate_defence_matrix
+     ActiveRecord::StatementInvalid:
+       PG::UndefinedTable: ERROR:  relation "units" does not exist
+       LINE 1: SELECT id                FROM units WHERE type = 'cannon_pil...
+                                             ^
+       QUERY:  SELECT id                FROM units WHERE type = 'cannon_pilot'
+       CONTEXT:  PL/pgSQL function activate_defence_matrix() line 5 at SQL statement
+       : select hq.activate_defence_matrix()
+     # ./spec/stored_procs/activate_defence_matrix_spec.rb:31:in `block (3 levels) in <top (required)>'
+
+Finished in 0.05548 seconds
+4 examples, 1 failure
+
+Failed examples:
+
+rspec ./spec/stored_procs/activate_defence_matrix_spec.rb:33 # the user report stored procedure activate the defence matrix should assign all the pilots to ion cannons
+</pre>
 <b>
 But stored procedures are compiled …. I have to recompile them to test!
 </b>
