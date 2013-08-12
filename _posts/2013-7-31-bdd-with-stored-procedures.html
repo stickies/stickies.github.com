@@ -130,7 +130,6 @@ end
 So now we can add some logic to our stored proc and iterate on it until we have a working solution, say we add..
 </p>
 <pre>
-  SET search_path = hq, pg_catalog;
   --
   -- Name: activate_defence_matrix(); Type: FUNCTION; Schema: hq; Owner: steve
   --
@@ -172,7 +171,7 @@ Failures:
        QUERY:  SELECT id                FROM units WHERE type = 'cannon_pilot'
        CONTEXT:  PL/pgSQL function activate_defence_matrix() line 5 at SQL statement
        : select hq.activate_defence_matrix()
-     # ./spec/stored_procs/activate_defence_matrix_spec.rb:31:in `block (3 levels) in top (required)>'
+     # ./spec/stored_procs/activate_defence_matrix_spec.rb:31:in `block (3 levels) in top (required)'
 
 Finished in 0.05548 seconds
 4 examples, 1 failure
@@ -186,5 +185,5 @@ rspec ./spec/stored_procs/activate_defence_matrix_spec.rb:33 # the activate defe
 When is this useful?
 </h3>
 <p>
-As services scale, the time it takes to execute a stored procedure can increase exponentially as the amount of data in your system increases, if you have a proc that takes several hours to run in production, then making a change and then testing it can be a lengthy process, conversely, to deploy a change without testing it could prove fatal. A better solution is to write tests that use a very small subset of data, or several permutations of the data to test different behaviour.
+As services scale, the time it takes to execute a stored procedure can increase exponentially as the amount of data in your system increases, if you have a proc that takes several hours to run in production, then making a change and testing it can be a lengthy process, conversely, to deploy a change without testing it could prove fatal. A better solution is to write tests that use a very small subset of data, or several permutations of the data to test different behaviour.
 </p>
