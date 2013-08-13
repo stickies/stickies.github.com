@@ -1,0 +1,15 @@
+You need to be careful when developing with stored procedures.
+
+<h2>The SET command</h2>
+<q>
+"The SET command changes runtime configuration parameters"
+</q> - <a href='http://www.postgresql.org/docs/9.1/static/sql-set.html'>Postgres documentation</a>
+
+<p>This means that if you are using an external transactional system like rspec, to test the stored procs you are writing, you can easily get in to trouble if you do something like this</p>
+
+<pre>
+SET search_path = hq, pg_catalog;
+</pre>
+<p>
+As you will immediately lose scope of all the relations in your public namespace and your tests will cease to function properly
+</p>
