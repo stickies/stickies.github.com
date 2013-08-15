@@ -1,6 +1,6 @@
 ---
 layout: stickie
-title: A Postgis Geospatial Database Up with Vagrant
+title: A Postgis Geospatial Database with Vagrant
 meta: postgresql virtualbox ruby
 ---
 [Postgis](http://postgis.net/) is without doubt an awesome technology. If you're into relational databases and geo then you'll love it if you don't already.
