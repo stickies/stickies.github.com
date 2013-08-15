@@ -1,11 +1,11 @@
 ---
 layout: stickie
-title: Postgis Geospatial Database Up and Running with Vagrant
+title: A Postgis Geospatial Database Up with Vagrant
 meta: postgresql virtualbox ruby
 ---
-(Postgis)[http://postgis.net/] is without doubt an awesome technology. If you're into relational databases and geo then you'll love it if you don't already.
+[Postgis](http://postgis.net/) is without doubt an awesome technology. If you're into relational databases and geo then you'll love it if you don't already.
 
-So I wanted to get it up and running on my Mac ASAP, to play around and maybe build something with it, but unfortunately I already have a version of Postgres running, with lots of work related material in the db, that I don't really want to mess up in my attempts to spatially enable the database! If you haven't seen or used the venerable (Virtual Box)[https://www.virtualbox.org/], then you're missing out, you will need it for this solution to work.
+So I wanted to get it up and running on my Mac ASAP, to play around and maybe build something with it, but unfortunately I already have a version of Postgres running, with lots of work related material in the db, that I don't really want to mess up in my attempts to spatially enable the database! If you haven't seen or used the venerable [Virtual Box](https://www.virtualbox.org/), then you're missing out, you will need it for this solution to work.
 
 Once you have virtual box installed, you need to install the vagrant gem. This is another awesome tool that acts as a wrapper around VirtualBox.
 

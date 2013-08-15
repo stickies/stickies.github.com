@@ -6,3 +6,7 @@ http://stackoverflow.com/questions/6127328/how-can-i-delete-all-git-branches-whi
 
 https://github.com/arc90/git-sweep
 
+Tidying up the local repo
+http://stackoverflow.com/questions/6127328/how-can-i-delete-all-git-branches-which-are-already-merged
+
+git branch --merged | grep -v "\*" | xargs -n 1 git branch -d
