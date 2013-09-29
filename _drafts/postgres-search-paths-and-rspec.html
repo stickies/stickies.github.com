@@ -1,4 +1,4 @@
-You need to be careful when developing with stored procedures.
+You need to be careful when developing with stored procedures and rspec, or any external process that uses the current connection.
 
 <h2>The SET command</h2>
 <q>
@@ -11,5 +11,5 @@ You need to be careful when developing with stored procedures.
 SET search_path = hq, pg_catalog;
 </pre>
 <p>
-As you will immediately lose scope of all the relations in your public namespace and your tests will cease to function properly
+As you will immediately lose scope of all the relations in your public namespace and your tests will cease to function properly.
 </p>

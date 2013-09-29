@@ -78,8 +78,8 @@ Then add this line to the Vagrantfile that vagrant created when you initialized 
     config.vm.provision :shell, :path => "bootstrap.sh"
 
 Now run
-    
+
     vagrant up
 
-Et viola.
+Et voila.
 
