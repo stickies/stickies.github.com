@@ -17,4 +17,12 @@ Person: It's not future proof.
 
 Me: It's more future proof than going out of business trying to exchange all your internal data over brittle, restrictive, json api's that'll need five gems to work and two weeks implementing oauth. It is at least a step towards an api and it doesn't cost you 50 grand to build.
 
-## Theres more than one way.
+## Theres more than one way to skin a large ferocious tiger thats bearing down on you in the open.
+If I'm writing an internal api to allow two internal services to talk to each other using http, I have to do something like the following:
+
+
+If I write an internal api that uses SQL over ssh I have to do the following.
+
+If I write an internal api using DRB I have to do the following.
+
+Oh but what if I want to write my client in noddingofftosleep.js .... I DON'T CARE, YOU CHOSE TO WRITE IT IN RUBY TO START WITH SO WTF WOULD YOU SUDDENLY CHOOSE NODE?
