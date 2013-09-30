@@ -1,7 +1,7 @@
 ---
 layout: stickie
 title: Drb For President
-meta: ruby api json http
+meta: ruby api json http druby drb
 ---
 I'm a bit tired of people trying to tell me what an api is. No it's not a json endpoint, go look it up.
 
