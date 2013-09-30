@@ -62,7 +62,7 @@ I'm sorry but who in their right mind would write a backend service api over HTT
 
 **Me:** It's more future proof than going out of business trying to exchange all your internal data over brittle, restrictive, json api's that'll need five gems to work and two weeks implementing oauth, let alone the months of actually impementing all the endpoints. It is at least a *step* towards an api and it doesn't cost you 50 grand to build.
 
-So for some strange reason SQL over TCP isn't good enough, fine, or maybe, empowering the programmer is not your objective, so:
+So for some strange reason SQL over TCP isn't good enough, fine, or maybe empowering the programmer is not your objective, so:
 
 #### [If I write an internal api using DRB I only have to do the following:](https://github.com/stevemartin/api-over-druby)
 
