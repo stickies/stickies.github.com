@@ -16,6 +16,12 @@ Firstly lets dissect the four 'states' that this sentence mentions.
 * The 'index' ( and contents of )
 
 ### The target tree
+  "Git is a content-addressable filesystem. Great. What does that mean? It means that at the core of Git is a simple key-value data store." - Schacone
+  [A good explanation of what a tree is can be found here](http://git-scm.com/book/en/Git-Internals-Git-Objects)
+
+Essentially, a tree in git is equivalent to a directory structure, with each node in the tree pointing either to another (sub) tree or a blob ( actual content ) object.
+
+So, the target tree is as you may expect: where the resulting code and files will be after the checkout.
 
 ### The baseline tree
 
