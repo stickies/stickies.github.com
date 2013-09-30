@@ -5,7 +5,7 @@ meta: ruby api json http
 ---
 I'm a bit tired of people trying to tell me what an api is. No it's not a json endpoint, go look it up.
 
-I'm also really tired of people telling me that Ruby's Drb 'isnt stable' or 'isnt mature', a comment that I have heard on more than one occasion, used to deflect the argument because the individual doesn't know quite what it is yet, and you caught them off guard. It's been in the standard lib since ruby 1.9.3 for Christs sake, how stable do you want it to be??
+I'm also really tired of people telling me that Ruby's Drb 'isnt stable' or 'isnt mature' enough to use for backend api work, a comment that I have heard on more than one occasion, used to deflect the argument because the individual doesn't know quite what it is yet, and you caught them off guard. It's been in the standard lib since ruby 1.9.3 for Christs sake, how stable do you want it to be??
 
 Unlike HTTParty which is still at an *unstable* version number.
 
