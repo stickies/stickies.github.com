@@ -5,11 +5,7 @@ meta: ruby api json http
 ---
 I'm a bit tired of people trying to tell me what an api is. No it's not a json endpoint, go look it up.
 
-I'm also really tired of people telling me that Ruby's Drb 'isnt stable' or 'isnt mature' enough to use for backend api work, a comment that I have heard on more than one occasion, used to deflect the argument because the individual doesn't know quite what it is yet, and you caught them off guard. It's been in the standard lib since ruby 1.9.3 for Christs sake, how stable do you want it to be??
-
-Unlike HTTParty which is still at an *unstable* version number.
-
-And Songkick's Oauth provider which is still at an *unstable* version number.
+I'm also really tired of people telling me that Ruby's Drb 'isnt stable' or 'isnt mature' enough to use for backend api work, a comment that I have heard on more than one occasion, used to deflect the argument because the individual doesn't know quite what it is yet, and you caught them off guard. It's been in the ruby standard library since ruby 1.9.3 for Christs sake, how stable do you want it to be?? ... Unlike HTTParty which is still at an *unstable* version number ... And Songkick's Oauth provider which is still at an *unstable* version number.
 
 The first tech company I worked for used a SOAP api over a .NET service for their *public consumers*, and this worked fine, it was horrible and I wouldn't wish it on anyone trying to develop a backend api. So lets get one thing straight, when it comes to api's I hate http full stop, its stateless, over complicated to imlement, has stupid idiosyncracies dating back to the previous century and is *extremely brittle* as a transfer medium. As far as I'm concerned you can take your HTTPartly gem and shove it up your Oauth for all I care when it comes to doing backend api's.
 
