@@ -8,7 +8,7 @@ Service Oriented Architecture ( SOA ) is a way of decoupling your system archite
 As a developer working with SOA, I often find myself working in several different project folders in several different languages at the same time, this can present a series of technical challenges in itself. Continually context switching and changing screens ( or having many tabs open for each project ) can become a balancing act.
 
 ### With Vim
-Below I have outlined a series of steps that you can take to set up your for this style of development.
+Below I have outlined a series of steps that you can take to set up your environment for this style of development.
 
 First, symlink all your seperate projects into one project folder. For example:
 
