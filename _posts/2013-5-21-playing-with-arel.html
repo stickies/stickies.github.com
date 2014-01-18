@@ -10,136 +10,131 @@ tags: ruby arel database
 <p>
 I like to use an 'arex' helper method to wrap arbitrary active record queries...
 </p>
-<pre>
-  def arex query
-    ActiveRecord::Base.connection.execute query
-  end
+{% highlight ruby %}
+def arex query
+  ActiveRecord::Base.connection.execute query
+end
 
-  users = Arel::Table.new(:user)
-  basic_query = users.project(Arel.sql(sql('*'))) # select all fields
-  basic_query = users.project(users[:id]) # select one field
-</pre>
+users = Arel::Table.new(:user)
+basic_query = users.project(Arel.sql(sql('*'))) # select all fields
+basic_query = users.project(users[:id]) # select one field
+{% endhighlight %}
 <p>
 specify fields
 </p>
-<pre>
-  specific_query = users.project([users[:id], users[:username]])
-</pre>
+{% highlight ruby %}
+ specific_query = users.project([users[:id], users[:username]])
+{% endhighlight %}
 <p>
 ... with conditions
 </p>
-<pre>
-  specific_query = users.project([users[:id], users[:username]]).where(users[:id].eq(1))
-</pre>
+{% highlight ruby %}
+specific_query = users.project([users[:id], users[:username]]).where(users[:id].eq(1))
+{% endhighlight %}
 
 <p>... with a join, can get tricky</p>
-<pre>
-  join_query = users.project([users[:id], users[:username]]).join(:user_profile).on(users[:id].eq('user_profile.user_id'))
-</pre>
+{% highlight ruby %}
+join_query = users.project([users[:id], users[:username]]).join(:user_profile).on(users[:id].eq('user_profile.user_id'))
+{% endhighlight %}
 <p>
 Returns ...
 </p>
-<pre>
-  "SELECT \"user\".\"id\", \"user\".\"username\" FROM \"user\" INNER JOIN 'user_profile' ON \"user\".\"id\" = 0"
-</pre>
+{% highlight ruby %}
+"SELECT \"user\".\"id\", \"user\".\"username\" FROM \"user\" INNER JOIN 'user_profile' ON \"user\".\"id\" = 0"
+{% endhighlight %}
 <p>
 using additional Arel tables seems to clear this up
 </p>
-<pre>
-  profiles = Arel::Table.new(:user_profile)
+{% highlight ruby %}
+profiles = Arel::Table.new(:user_profile)
 
-  join_query = users.project([users[:id], users[:username]]).join(profiles).on(users[:id].eq(profiles['user_id']))
-</pre>
+join_query = users.project([users[:id], users[:username]]).join(profiles).on(users[:id].eq(profiles['user_id']))
+{% endhighlight %}
 <p>
 and you can relax it a bit too
 </p>
-<pre>
-  join_query = users.project('*').join(profiles).on(users[:id].eq(profiles['user_id']))
-</pre>
+{% highlight ruby %}
+join_query = users.project('*').join(profiles).on(users[:id].eq(profiles['user_id']))
+{% endhighlight %}
 <h4>get a relation's columns</h4>
-<pre>
-  users.columns.map(&:name)
-</pre>
+{% highlight ruby %}
+users.columns.map(&:name)
+{% endhighlight %}
 
 <h2>Updating tables</h2>
-<pre>
-  crudder = Arel::SelectManager.new users.engine
+{% highlight ruby %}
+crudder = Arel::SelectManager.new users.engine
 
-  crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
-  #=> "UPDATE \"user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"user\".\"id\" = 1"
+crudder.compile_update([[users[:username], "steveo@lyti.cs"]]).where(users[:id].eq(1)).to_sql
+#=> "UPDATE \"user\" SET \"username\" = 'steveo@lyti.cs' WHERE \"user\".\"id\" = 1"
 
-</pre>
+{% endhighlight %}
 
 <h4>Get join table relations...</h4>
-<pre>
-  profiles.project(Arel.star).join(user_groups).on(user_groups[:user_id].eq(profiles[:user_id])).where(user_groups[:group_id].eq(3))
-</pre>
+{% highlight ruby %}
+profiles.project(Arel.star).join(user_groups).on(user_groups[:user_id].eq(profiles[:user_id])).where(user_groups[:group_id].eq(3))
+{% endhighlight %}
 <h4>So ... stored procedures :D</h4>
 
 <p>Could you express the following as Arel... ?</p>
-<pre>
+{% highlight ruby %}
   ActiveRecord::Base.connection.execute "select id, (select * from my_schema.account_ref(u.id)) as bal from user as u where u.id = 109"
-</pre>
+{% endhighlight %}
 <p>
 And the answer, as it turns out, is yes, somewhat ...
 </p>
-<pre>
-  users = Arel::Table.new(:user)
-  users.table_alias = 'u'
+{% highlight ruby %}
+users = Arel::Table.new(:user)
+users.table_alias = 'u'
 
-  manager = Arel::SelectManager.new users.engine
-            manager.project Arel.star
-            manager.from Arel.sql("my_schema.account_ref(#{users.table_alias}.id)")
-            
-</pre>
+manager = Arel::SelectManager.new users.engine
+          manager.project Arel.star
+          manager.from Arel.sql("my_schema.account_ref(#{users.table_alias}.id)")
+
+{% endhighlight %}
 <p>
 In sql you have column aliases (AS) and table (or *relation*) aliases (table_alias)
 </p>
-<pre>
-  users.project([users[:id], manager.as('bal')])
-  arex users.project([users[:id], manager.as('bal')]).where(users[:id].eq(109)).to_sql
-</pre>
+{% highlight ruby %}
+users.project([users[:id], manager.as('bal')])
+arex users.project([users[:id], manager.as('bal')]).where(users[:id].eq(109)).to_sql
+{% endhighlight %}
 <p>
 sadly this is considerably more verbose than just using connection.execute with the sql
 </p>
-<pre>
-  arex "select * from my_schema.account_ref(42)"
-</pre>
-<p>
-Some failed experiements ....
-the answer turned out to be: users.table_alias = 'u', see above
-
-          # try to create an alias of u for user
-          # users_manager = Arel::SelectManager.new users.engine
-          # users_manager.from(users)
-          # users_as = users_manager.as(Arel.sql('u'))
-          # users_manager.project([users[:id], manager.as('bal')]).as('u').where(users[:id].eq(109)).to_sql
-
-          # user_manager = Arel::SelectManager.new Table.engine
-          # manager.project Arel.sql('id', as])
-          # manager.from as
-          # manager.to_sql.must_be_like "SELECT name FROM (SELECT * FROM zomg) foo"
-          </p>
-
+{% highlight ruby %}
+arex "select * from my_schema.account_ref(42)"
+{% endhighlight %}
           <p>
 The top level Arel classes
 </p>
-<pre>
-Arel::AliasPredication  Arel::Attribute         Arel::Attributes
-Arel::Compatibility  Arel::Crud
+{% highlight ruby %}
+Arel::AliasPredication
+Arel::Attribute
+Arel::Attributes
+Arel::Compatibility
+Arel::Crud
 Arel::DeleteManager
-Arel::Expression   Arel::Expressions
-Arel::InnerJoin      Arel::InsertManager
+Arel::Expression
+Arel::Expressions
+Arel::InnerJoin
+Arel::InsertManager
 Arel::Math
-Arel::Node   Arel::Nodes
-Arel::OrderPredications  Arel::OuterJoin
+Arel::Node
+Arel::Nodes
+Arel::OrderPredications
+Arel::OuterJoin
 Arel::Predications
 Arel::Relation
-Arel::SelectManager  Arel::Sql            Arel::SqlLiteral
-Arel::Table        Arel::TreeManager
+Arel::SelectManager
+Arel::Sql
+Arel::SqlLiteral
+Arel::Table
+Arel::TreeManager
 Arel::UpdateManager
-Arel::VERSION   Arel::Visitors
-</pre>
+Arel::VERSION
+Arel::Visitors
+{% endhighlight %}
 
 <h2>Using arel for data analysis</h2>
 
@@ -150,38 +145,38 @@ But if you want to do data analysis, such as working out the function of some da
 <p>
 So if we want to analyse bidding data:
 </p>
-<pre>
+{% highlight ruby %}
   bids = Arel::Table.new(Bid.table_name)
   res = arex bids.project(bids[:id]).where(bids[:id].eq(1)).to_sql
-</pre>
+{% endhighlight %}
 <p>
 How many bids placed by day of the week
 </p>
-<pre>
+{% highlight ruby %}
   res = arex bids.project(bids[:id].count).group("extract(dow from #{bids.name}.created_at)").to_sql
-</pre>
+{% endhighlight %}
 <p>
 ... or day of the year
 </p>
-<pre>
+{% highlight ruby %}
   res = arex bids.project(bids[:id].count).group("extract(doy from #{bids.name}.created_at)").to_sql
-</pre>
+{% endhighlight %}
 <p>
 add in the date as a field, and get the number per month since launch
 </p>
-<pre>
+{% highlight ruby %}
   res = arex bids.project(bids[:id].count, "date_trunc('month', #{bids.name}.created_at) as gdate").group("gdate").to_sql
-</pre>
+{% endhighlight %}
 <p>
 get the number per day ...
 </p>
-<pre>
+{% highlight ruby %}
   res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date").group("group_date").to_sql
-</pre>
+{% endhighlight %}
 <p>
 add in the status of the bid ...
 </p>
-<pre>
+{% highlight ruby %}
   res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date", bids[:status]).group("group_date", bids[:status]).to_sql
-</pre>
+{% endhighlight %}
 
