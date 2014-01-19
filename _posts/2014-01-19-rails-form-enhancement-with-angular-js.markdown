@@ -137,7 +137,7 @@ Note the camelcase to hypenated conversion between the angular directive and the
 Now angular will happily replace the submit button with a link that is bound to the FormControllers submitForm() function, and when you click this link, it will submit the form behind the scenes via ajax, right?
 
 ### Just one more thing ...
-We need to set up the XSRF, XRWA and Accept headers in order for rails to properly negotiate the request and specify the values we are going to send back to rails. Add the folllowing to the angular code. [See the diff for details](https://github.com/stevemartin/rangular/commit/33a663f37104a04f888fb51aff9d5c7262726b69).
+We need to set up the XSRF, XRW and Accept headers in order for rails to properly negotiate the request and specify the values we are going to send back to rails. Add the folllowing to the angular code. [See the diff for details](https://github.com/stevemartin/rangular/commit/33a663f37104a04f888fb51aff9d5c7262726b69).
 
 {% highlight coffeescript %}
 angular.module('authorsApp').config(['$httpProvider', (@$httpProvider)->
