@@ -2,7 +2,7 @@
 .highlight .hll { background-color: #333333 }
 .highlight  {
 
-background: #111111;
+/* background: #111111; */
 
 color: #ffffff ;
 
@@ -28,7 +28,7 @@ border-radius: 4px;
 -moz-border-radius: 4px;
 color: #C5CBD0;
 /*color: white*/
-background-image: url(/images/opaque_20.png);
+/* background-image: url(/images/opaque_20.png); */
 font-family: Menlo, Consolas, "Courier New", Courier, "Liberation Mono", monospace;
 font-size: 1.1em;
 /*height: 0px;
@@ -50,15 +50,28 @@ top: auto;
 
 p > a > code
 {
-color: #95be7d;
+/* color: #95be7d; */
+}
+code, pre {
+  font-family: "Consolas", "Courier New", "Courier", "FreeMono", monospace;
+  font-size:0.95em;
+  margin: 1em 0 1.5em 0;
 }
 
-code, pre {
-        font-family: "Consolas", "Courier New", "Courier", "FreeMono", monospace;
-        color: white;
-        font-size:0.95em;
-        margin: 1em 0 1.5em 0;
+.highlight code, .highlight pre {
+  color: white;
+}
+
+.highlight pre{
     background-color: black;
+}
+
+code.vim:before {
+  content: 'vim: ';
+}
+
+code.bash:before {
+  content: 'shell: ';
 }
 
 .highlight span
@@ -68,7 +81,7 @@ font-size:1em;
 }
 
 .highlight .hll { background-color: #49483e }
-.highlight  { /*background: #272822;*/ color: #f8f8f2 }
+/* .highlight  { /*background: #272822;*/ color: #f8f8f2 } */
 .highlight .c { color: #75715e } /* Comment */
 .highlight .err { color: #960050; background-color: #1e0010 } /* Error */
 .highlight .k { color: #66d9ef } /* Keyword */

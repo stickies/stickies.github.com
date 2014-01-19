@@ -32,7 +32,9 @@ Given I have several project folders, each project is managed as a seperate git 
 
 Create a new workspace directory ...
 
-    mkdir  ~/Projects/stack
+{% highlight bash %}
+mkdir  ~/Projects/stack
+{% endhighlight %}
 
 And symlink all the projects into ~/Projects/stack
 
