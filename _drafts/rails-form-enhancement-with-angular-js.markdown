@@ -107,8 +107,63 @@ Now edit the cooresponding form template `app/views/authors/_form.html.haml` lik
     = f.submit 'Save'
 
 {% endhighlight %}
-* implement form service.
+
+Now, you will notice when you submit the form, that it still does a traditional full page post, this obviously not what we want. To get round this issue we need to use an angular directive to replace the submit button with something a bit more friendly.
+
+First, add the directive to the [coffeescript](https://github.com/stevemartin/rangular/commit/51bd9982784dda2921140fca9c5dea1404e94c52).
+
+{% highlight coffeescript %}
+angular.module('authorsApp.directives', [])
+  .directive('peSubmit', (@$compile)->
+    return {
+      link: (scope, element, attrs)->
+        @html = '<a ng-click="submitForm()">Save</a>'
+        @e = $compile(@html)(scope)
+        element.replaceWith(@e)
+    }
+  )
+
+{% endhighlight %}
+
+Then, bind the forms submit button to the directive, like so...
+
+{% highlight haml %}
+  .actions
+    = f.submit 'Save', 'pe-submit' => true
+{% endhighlight %}
+
+Note the camelcase to hypenated conversion between the angular directive and the template binding.
+
+Now angular will happily replace the submit button with a link that is bound to the FormControllers submitForm() function, and when you click this link, it will submit the form behind the scenes via ajax, right?
+
+### Just one more thing ...
+We need to set up the XSRF, XRWA and Accept headers in order for rails to properly negotiate the request and specify the values we are going to send back to rails. Add the folllowing to the angular code. [See the diff for details](https://github.com/stevemartin/rangular/commit/33a663f37104a04f888fb51aff9d5c7262726b69).
+
+{% highlight coffeescript %}
+angular.module('authorsApp').config(['$httpProvider', (@$httpProvider)->
+  @metatag = document.querySelectorAll("meta[name=\"csrf-token\"]")[0]
+  @authToken = if metatag then metatag.content else null
+  $httpProvider.defaults.headers.common["X-CSRF-TOKEN"] = @authToken
+  $httpProvider.defaults.headers['common']['Accept'] = 'application/json'
+  $httpProvider.defaults.headers['common']['X-Requested-With'] = 'XMLHttpRequest'
+  ])
+{% endhighlight %}
+
+And in the `FormController` change the `submitForm` functions http post to:
+
+{% highlight coffeescript %}
+$http.post('/authors', author:{name:$scope.name, email:$scope.email})
+{% endhighlight %}
+
+And there you go. Progressive enhancement for JS users and Plain Old Form Submits for non JS users!
+
+### In the next part
+We will look at implementing a nested form and how fields_for cooreleates quite nicely to angulars ng-repeat.
+
+* implement form service to handle scopes across controllers.
 * implement nested model and its relation to ( ng-repeat ).
+
+Thanks for reading!
 
 #### Citing:
 * [angular-coffee](http://alxhill.com/blog/articles/angular-coffeescript/)
