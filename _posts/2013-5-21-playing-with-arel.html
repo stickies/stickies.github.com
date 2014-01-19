@@ -23,7 +23,7 @@ basic_query = users.project(users[:id]) # select one field
 specify fields
 </p>
 {% highlight ruby %}
- specific_query = users.project([users[:id], users[:username]])
+specific_query = users.project([users[:id], users[:username]])
 {% endhighlight %}
 <p>
 ... with conditions
@@ -78,7 +78,7 @@ profiles.project(Arel.star).join(user_groups).on(user_groups[:user_id].eq(profil
 
 <p>Could you express the following as Arel... ?</p>
 {% highlight ruby %}
-  ActiveRecord::Base.connection.execute "select id, (select * from my_schema.account_ref(u.id)) as bal from user as u where u.id = 109"
+ActiveRecord::Base.connection.execute "select id, (select * from my_schema.account_ref(u.id)) as bal from user as u where u.id = 109"
 {% endhighlight %}
 <p>
 And the answer, as it turns out, is yes, somewhat ...
@@ -105,7 +105,7 @@ sadly this is considerably more verbose than just using connection.execute with 
 {% highlight ruby %}
 arex "select * from my_schema.account_ref(42)"
 {% endhighlight %}
-          <p>
+<p>
 The top level Arel classes
 </p>
 {% highlight ruby %}
@@ -146,37 +146,36 @@ But if you want to do data analysis, such as working out the function of some da
 So if we want to analyse bidding data:
 </p>
 {% highlight ruby %}
-  bids = Arel::Table.new(Bid.table_name)
-  res = arex bids.project(bids[:id]).where(bids[:id].eq(1)).to_sql
+bids = Arel::Table.new(Bid.table_name)
+res = arex bids.project(bids[:id]).where(bids[:id].eq(1)).to_sql
 {% endhighlight %}
 <p>
 How many bids placed by day of the week
 </p>
 {% highlight ruby %}
-  res = arex bids.project(bids[:id].count).group("extract(dow from #{bids.name}.created_at)").to_sql
+res = arex bids.project(bids[:id].count).group("extract(dow from #{bids.name}.created_at)").to_sql
 {% endhighlight %}
 <p>
 ... or day of the year
 </p>
 {% highlight ruby %}
-  res = arex bids.project(bids[:id].count).group("extract(doy from #{bids.name}.created_at)").to_sql
+res = arex bids.project(bids[:id].count).group("extract(doy from #{bids.name}.created_at)").to_sql
 {% endhighlight %}
 <p>
 add in the date as a field, and get the number per month since launch
 </p>
 {% highlight ruby %}
-  res = arex bids.project(bids[:id].count, "date_trunc('month', #{bids.name}.created_at) as gdate").group("gdate").to_sql
+res = arex bids.project(bids[:id].count, "date_trunc('month', #{bids.name}.created_at) as gdate").group("gdate").to_sql
 {% endhighlight %}
 <p>
 get the number per day ...
 </p>
 {% highlight ruby %}
-  res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date").group("group_date").to_sql
+res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date").group("group_date").to_sql
 {% endhighlight %}
 <p>
 add in the status of the bid ...
 </p>
 {% highlight ruby %}
-  res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date", bids[:status]).group("group_date", bids[:status]).to_sql
+res = arex bids.project(bids[:id].count, "date_trunc('day', #{bids.name}.created_at) as group_date", bids[:status]).group("group_date", bids[:status]).to_sql
 {% endhighlight %}
-

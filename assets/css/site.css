@@ -67,11 +67,23 @@ code, pre {
 }
 
 code.vim:before {
-  content: 'vim: ';
+  font-size:0.55em;
+  content: 'vim: \a';
 }
 
 code.bash:before {
-  content: 'shell: ';
+  font-size:0.55em;
+  content: 'shell: \a';
+}
+
+code.ruby:before {
+  font-size:0.55em;
+  content: 'ruby: \a';
+}
+
+code.javascript:before {
+  font-size:0.55em;
+  content: 'javascript: \a';
 }
 
 .highlight span

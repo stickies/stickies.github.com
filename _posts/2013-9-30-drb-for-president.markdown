@@ -17,25 +17,28 @@ When is it a good idea? If you're a company with 150 developers in twelve countr
 
 ### API SERVER
 
-    Gemfile
-    gem 'songkick-oauth-provider' # 20 thousand lines of code!
-    gem 'rabl' # 20 thousand lines of code!
-    gem 'grape' # 20 thousand lines of code!
-    gem 'draper' # 20 thousand lines of code!
+{% highlight ruby %}
+# Gemfile
+gem 'songkick-oauth-provider' # 20 thousand lines of code!
+gem 'rabl' # 20 thousand lines of code!
+gem 'grape' # 20 thousand lines of code!
+gem 'draper' # 20 thousand lines of code!
+{% endhighlight %}
 
-    Now implement the OAUTH # 200 lines of code!
-    Now implement the API endpoint # 200 lines of code!
-
+Now implement the OAUTH # 200 lines of code!
+Now implement the API endpoint # 200 lines of code!
 
 ### CLIENT APP
 
-    Gemfile
-    gem 'oauth-client' # 20 thousand lines of code!
-    gem 'httparty' # 20 thousand lines of code!
+{% highlight ruby %}
+# Gemfile
+gem 'oauth-client' # 20 thousand lines of code!
+gem 'httparty' # 20 thousand lines of code!
+{% endhighlight %}
 
-    + An impossibly difficult setup, if you ever want to use me in UAT.
++ An impossibly difficult setup, if you ever want to use me in UAT.
 
-    ... Now implement consuming the API # 200 lines of code!
+... Now implement consuming the API # 200 lines of code!
 
 ... and this is just for one endpoint!
 
@@ -43,10 +46,12 @@ When is it a good idea? If you're a company with 150 developers in twelve countr
 
 ### API SERVER
 
-    Gemfile
-    # NO LINES OF CODE
+{% highlight ruby %}
+# Gemfile
+# NO LINES OF CODE
+{% endhighlight %}
 
-    Implement my active record objects in a shared library or gem.
+Implement my active record objects in a shared library or gem.
 
 ### CLIENT APP
 
