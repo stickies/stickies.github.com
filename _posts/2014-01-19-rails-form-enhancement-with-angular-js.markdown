@@ -164,7 +164,7 @@ We will look at implementing a nested form and how fields_for cooreleates quite 
 * implement form service to handle scopes across controllers.
 * implement nested model and its relation to ( ng-repeat ).
 
-Thanks for reading! You can check out the source for this code [here](https://github.com/stevemartin/rangular)
+Thanks for reading! You can check out the source for this tutorial [here](https://github.com/stevemartin/rangular)
 
 #### Citing:
 * [angular-coffee](http://alxhill.com/blog/articles/angular-coffeescript/)
