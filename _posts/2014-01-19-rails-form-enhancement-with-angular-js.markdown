@@ -4,9 +4,9 @@ title: Rails form enhancement with Angularjs
 meta: rails angular angularjs progressive-enhancement jquery javascript ruby
 ---
 ### Preface
-These days single page apps are all the rage. There are many technologies emerging that enable slick UI without having to do much on the server.
+These days single page apps are all the rage. There are many technologies emerging that enable slick web UI without having to do much, if anything, on the server side.
 
-Historically, Rails used the prototype and jquery libraries to enable form enhancement.
+Historically, Rails used the prototype and recently jquery library to handle progressive enhancement.
 
 Angularjs is a frontend javascript framework developed by Google, it acts like an MVC framework but at a different layer of abstraction. Angular is a declarative tool.
 
@@ -164,7 +164,7 @@ We will look at implementing a nested form and how fields_for cooreleates quite 
 * implement form service to handle scopes across controllers.
 * implement nested model and its relation to ( ng-repeat ).
 
-Thanks for reading!
+Thanks for reading! You can check out the source for this code [here](https://github.com/stevemartin/rangular)
 
 #### Citing:
 * [angular-coffee](http://alxhill.com/blog/articles/angular-coffeescript/)
