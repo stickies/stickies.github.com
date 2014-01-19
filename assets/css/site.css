@@ -26,7 +26,7 @@ p > code, p > a > code
 border-radius: 4px;
 -webkit-border-radius: 4px;
 -moz-border-radius: 4px;
-color: #C5CBD0;
+color: darkslateblue;
 /*color: white*/
 /* background-image: url(/images/opaque_20.png); */
 font-family: Menlo, Consolas, "Courier New", Courier, "Liberation Mono", monospace;
@@ -84,6 +84,26 @@ code.ruby:before {
 code.javascript:before {
   font-size:0.55em;
   content: 'javascript: \a';
+}
+
+code.coffeescript:before {
+  font-size:0.55em;
+  content: 'coffeescript: \a';
+}
+
+code.html:before {
+  font-size:0.55em;
+  content: 'html: \a';
+}
+
+code.erb:before {
+  font-size:0.55em;
+  content: 'erb: \a';
+}
+
+code.haml:before {
+  font-size:0.55em;
+  content: 'haml: \a';
 }
 
 .highlight span
