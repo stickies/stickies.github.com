@@ -3,7 +3,6 @@ layout: stickie
 title: Rails form enhancement with Angularjs
 meta: rails angular angularjs progressive-enhancement jquery javascript ruby
 ---
-### Preface
 These days single page apps are all the rage. There are many technologies emerging that enable slick web UI without having to do much, if anything, on the server side.
 
 Historically, Rails used the prototype and recently jquery library to handle progressive enhancement.
