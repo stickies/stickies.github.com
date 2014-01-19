@@ -158,10 +158,11 @@ $http.post('/authors', author:{name:$scope.name, email:$scope.email})
 And there you go. Progressive enhancement for JS users and Plain Old Form Submits for non JS users!
 
 ### In the next part
-We will look at implementing a nested form and how fields_for cooreleates quite nicely to angulars ng-repeat.
+We will look at handlngh validations, implementing a nested form and how fields_for cooreleates quite nicely to angulars ng-repeat.
 
+* handle validations with angular
 * implement form service to handle scopes across controllers.
-* implement nested model and its relation to ( ng-repeat ).
+* implement nested model and its relation to ng-repeat.
 
 Thanks for reading! You can check out the source for this tutorial [here](https://github.com/stevemartin/rangular)
 
