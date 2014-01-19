@@ -15,6 +15,7 @@ __A few words on Angularjs ...__
 __A few words on progressive enhancement ...__
 > *Progressive enhancement is a strategy for web design that emphasizes accessibility, semantic HTML markup, and external stylesheet and scripting technologies. Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, using any browser or Internet connection, while also providing an enhanced version of the page to those with more advanced browser software or greater bandwidth.* - __Wikipedia__
 
+OK! So we want to progressively enhance our form with Angular ( For whatever our reasons are :) - Lets get started!
 #### First, implement a basic rails scaffold.
 For the purposes of this tutorial we will be using Rails 4.0.1 and Angular version 1.2.9.
 
