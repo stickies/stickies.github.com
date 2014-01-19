@@ -1,15 +1,15 @@
 ---
 layout: stickie
-title: Rails form enhancement with Angularjs
+title: Rails form enhancement with AngularJS
 meta: rails angular angularjs progressive-enhancement jquery javascript ruby
 ---
 These days single page apps are all the rage. There are many technologies emerging that enable slick web UI without having to do much, if anything, on the server side.
 
 Historically, Rails used the prototype and recently jquery library to handle progressive enhancement.
 
-Angularjs is a frontend javascript framework developed by Google, it acts like an MVC framework but at a different layer of abstraction. Angular is a declarative tool.
+AngularJS is a frontend javascript framework developed by Google, it acts like an MVC framework but at a different layer of abstraction. Angular is a declarative tool.
 
-__A few words on Angularjs ...__
+__A few words on AngularJS ...__
 > *AngularJS is a toolset for building the framework most suited to your application development. It is fully extensible and works well with other libraries. Every feature can be modified or replaced to suit your unique development workflow and feature needs. Read on to find out how.* - __angularjs.org__
 __A few words on progressive enhancement ...__
 > *Progressive enhancement is a strategy for web design that emphasizes accessibility, semantic HTML markup, and external stylesheet and scripting technologies. Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, using any browser or Internet connection, while also providing an enhanced version of the page to those with more advanced browser software or greater bandwidth.* - __Wikipedia__
