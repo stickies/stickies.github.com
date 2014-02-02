@@ -10,12 +10,12 @@ Historically, Rails used the prototype and recently jquery library to handle pro
 AngularJS is a frontend javascript framework developed by Google, it acts like an MVC framework but at a different layer of abstraction. Angular is a declarative tool.
 
 __A few words on AngularJS ...__
-> *AngularJS is a toolset for building the framework most suited to your application development. It is fully extensible and works well with other libraries. Every feature can be modified or replaced to suit your unique development workflow and feature needs. Read on to find out how.* - __angularjs.org__
+> *AngularJS is a toolset for building the framework most suited to your application development. It is fully extensible and works well with other libraries. Every feature can be modified or replaced to suit your unique development workflow and feature needs.* - __angularjs.org__
 __A few words on progressive enhancement ...__
 > *Progressive enhancement is a strategy for web design that emphasizes accessibility, semantic HTML markup, and external stylesheet and scripting technologies. Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, using any browser or Internet connection, while also providing an enhanced version of the page to those with more advanced browser software or greater bandwidth.* - __Wikipedia__
 
 OK! So we want to progressively enhance our form with Angular ( For whatever our reasons are :) - Lets get started!
-#### First, implement a basic rails scaffold.
+#### First, implement a basic Rails scaffold.
 For the purposes of this tutorial we will be using Rails 4.0.1 and Angular version 1.2.9.
 
 {% highlight bash %}
@@ -108,7 +108,7 @@ Now edit the cooresponding form template `app/views/authors/_form.html.haml` lik
 
 {% endhighlight %}
 
-Now, you will notice when you submit the form, that it still does a traditional full page post, this obviously not what we want. To get round this issue we need to use an angular directive to replace the submit button with something a bit more friendly.
+Now, you will notice when you submit the form, that it still does a traditional full page post, this is obviously not what we want. To get round this issue we need to use an angular directive to replace the submit button with something a bit more friendly.
 
 First, add the directive to the [coffeescript](https://github.com/stevemartin/rangular/commit/51bd9982784dda2921140fca9c5dea1404e94c52).
 
@@ -158,7 +158,7 @@ $http.post('/authors', author:{name:$scope.name, email:$scope.email})
 And there you go. Progressive enhancement for JS users and Plain Old Form Submits for non JS users!
 
 ### In the next part
-We will look at handlng validations, implementing a nested form and how fields_for correleates quite nicely to angulars ng-repeat.
+We will look at handlng validations, implementing a nested form and how fields_for correleates quite nicely to Angulars ng-repeat.
 
 * handle validations with angular
 * implement form service to handle scopes across controllers.
