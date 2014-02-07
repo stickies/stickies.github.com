@@ -5,7 +5,7 @@ meta: rails angular angularjs progressive-enhancement jquery javascript ruby nes
 ---
 In my previous post we looked at using AngularJS to progressively enhance a Rails form.
 
-In this article we will expand on that to include validating the form, handling state for the form and building nested form fields for has many models.
+In this and the next few articles we will expand on that to include building nested form fields for has many models, validating the form and handling state for the form.
 
 * We need to validate on the server and on the client so we will implement an active model based solution for the rails backend and an angular based solution for the front end.building a nested model for has many models.
 
@@ -78,3 +78,22 @@ And modify the angular code at `app/assets/javascripts/authors.js.coffee` to do 
     .controller( 'ArticlesController', ['$scope', ArticlesController] )
 
 {% endhighlight %}
+
+### A model form service
+
+Now that we have added a new set of nested fields with a nested key `author[article]`, the Angular code needs to be modified to handle the attribute keys in the same way that Rails would do. Otherwise we will end up with complex code or multiple end points doing virtually the same thing. To do this we wrap the form data model in a seperate service.
+
+The service looks like this:
+
+{% highlight coffeescript %}
+  class FormData
+    constructor: (data)->
+      formData = data or {articles:[{}]}
+      return formData
+
+  angular.module('authorsApp.services', [])
+    .factory('FormData', [FormData])
+
+{% endhighlight %}
+
+#### But for the sake of simplicity [look at the diff](https://github.com/stevemartin/rangular/commit/1cb48a3b24108ac6d8dbfee437601281919a350a) to get a better idea, and follow on from there.
