@@ -100,4 +100,24 @@ The service looks like this:
 
 ### Adding and Removing articles.
 
-Now that we have a form service handling our form submission, we can start to think about adding and removing authors, and how the JS and Non JS approaches differ.
+Now that we have a form service handling our form submission, we can start to think about adding and removing authors and how to implement these in JS and POP ( Plain Old Posts ).
+
+We're going to start with the progressively enhanced version and the fallback to POP ( Plain Old Posts ) with the help of some directives. Directives are a feature of Angular that enable you to do stuff.
+
+We open up our [authors partial](https://raw2.github.com/stevemartin/rangular/52da63e1b3332f1ceaf72122602b53b5593b763c/app/views/authors/form/_articles.html.haml) at `app/views/authors/form/_articles.html.haml`. And add the buttons that we are going to use, so that the template reads like this:
+
+{% highlight haml %}
+#articles{'ng-controller' => 'ArticlesController'}
+  = f.fields_for :articles do |a|
+    .div{'ng-repeat' => 'article in articles'}
+      .field
+        = a.label :title
+        = a.text_field :title, 'ng-model' => 'title'
+      .field
+        = a.label :description
+        = a.text_area :description, 'ng-model' => 'description'
+      .actions
+        = f.submit 'Remove Article', 'pe-remove-article' => true, 'ng-click' => 'removeArticle($index)'
+  .actions
+    = f.submit 'Add Article', 'pe-add-article' => true
+{% endhighlight %}
