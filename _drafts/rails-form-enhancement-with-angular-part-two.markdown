@@ -121,3 +121,27 @@ We open up our [authors partial](https://raw2.github.com/stevemartin/rangular/52
   .actions
     = f.submit 'Add Article', 'pe-add-article' => true
 {% endhighlight %}
+
+Now we add the [angular directive code](https://github.com/stevemartin/rangular/commit/de883896784c130ab5ea8a9dbd44a17f013b1e19) to enable us to swap out the old submits that we added with the nice angular links.
+
+{% highlight coffeescript %}
+    .directive('peAddArticle', (@$compile)->
+      return {
+        link: (scope, element, attrs)->
+          @html = '<a ng-click="addArticle()">Add Article</a>'
+          @e = $compile(@html)(scope)
+          element.replaceWith(@e)
+      }
+    ).directive('peRemoveArticle', (@$compile)->
+      return {
+        scope: {
+          eventHandler: '&ngClick'
+        },
+        link: (scope, element, attrs)->
+          @html = '<a ng-click="eventHandler()">Remove Article</a>'
+          @e = $compile(@html)(scope)
+          element.replaceWith(@e)
+      }
+    )
+
+{% endhighlight %}
