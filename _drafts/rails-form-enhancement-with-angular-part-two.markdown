@@ -7,7 +7,7 @@ In my previous post we looked at using AngularJS to progressively enhance a Rail
 
 In this and the next few articles we will expand on that to include building nested form fields for has many models, validating the form and handling state for the form.
 
-* We need to validate on the server and on the client so we will implement an active model based solution for the rails backend and an angular based solution for the front end.building a nested model for has many models.
+* We need to validate on the server and on the client so we will implement an active model based solution for the rails backend and an angular based solution for the front end.
 
 ### A nested model
 First, lets create our nested model case:
@@ -97,3 +97,7 @@ The service looks like this:
 {% endhighlight %}
 
 #### But for the sake of simplicity [look at the diff](https://github.com/stevemartin/rangular/commit/1cb48a3b24108ac6d8dbfee437601281919a350a) to get a better idea, and follow on from there.
+
+### Adding and Removing articles.
+
+Now that we have a form service handling our form submission, we can start to think about adding and removing authors, and how the JS and Non JS approaches differ.
