@@ -261,7 +261,7 @@ def author_create_failed
 end
 {% endhighlight %}
 
-Also, Son't forget to add the articles attributes to the controller's `permit` attributes:
+Also, don't forget to add the articles attributes to the controller's `permit` attributes, you'll need to change the author_params method like so:
 
 {% highlight ruby %}
 def author_params
@@ -269,3 +269,5 @@ def author_params
    params.require(:author).permit(:name, :email, articles_attributes:[:title, :description])
  end
 {% endhighlight %}
+
+Now we have a working *create* form that will submit new data to the server both asyncronously ( the progressive bit ) and traditionally the Plain Old Post bit.
