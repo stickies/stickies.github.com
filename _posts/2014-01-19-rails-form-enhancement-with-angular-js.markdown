@@ -5,7 +5,7 @@ meta: rails angular angularjs progressive-enhancement jquery javascript ruby
 ---
 These days single page apps are all the rage. There are many technologies emerging that enable slick web UI without having to do much, if anything, on the server side.
 
-Historically, Rails used the prototype and recently jquery library to handle progressive enhancement.
+Historically, Rails used the Prototype and recently jQuery library to handle progressive enhancement.
 
 AngularJS is a frontend javascript framework developed by Google, it acts like an MVC framework but at a different layer of abstraction. Angular is a declarative tool.
 
@@ -14,7 +14,7 @@ __A few words on AngularJS ...__
 __A few words on progressive enhancement ...__
 > *Progressive enhancement is a strategy for web design that emphasizes accessibility, semantic HTML markup, and external stylesheet and scripting technologies. Progressive enhancement uses web technologies in a layered fashion that allows everyone to access the basic content and functionality of a web page, using any browser or Internet connection, while also providing an enhanced version of the page to those with more advanced browser software or greater bandwidth.* - __Wikipedia__
 
-OK! So we want to progressively enhance our form with Angular ( For whatever our reasons are :) - Lets get started!
+OK! So we want to progressively enhance our Rails form with AngularJS, for whatever our reasons are :) - Lets get started!
 #### First, implement a basic Rails scaffold.
 For the purposes of this tutorial we will be using Rails 4.0.1 and Angular version 1.2.9.
 
@@ -28,9 +28,9 @@ rake db:migrate
 rails s
 {% endhighlight %}
 
-This will generate a basic rails app ( with author model, database and form views ) and boot the basic rails server.
+This will generate a basic Rails app ( with author model, database and form views ) and boot the basic rails server.
 
-Now, navigate to [the new author form](http://localhost:3000/authors/new){:rel='nofollow'} in your browser. You will see a basic non progressive-enhancement form that you can submit to.
+Now, navigate to <a target='_blank' href='http://localhost:3000/authors/new'>the new author form</a> in your browser. You will see a basic non progressive-enhancement form that you can submit to.
 
 #### Next, *angularize* the app.
 1) Open the file: `app/assets/javascripts/author.js.coffee` and add the following code:
@@ -155,9 +155,9 @@ And in the `FormController` change the `submitForm` functions http post to:
 $http.post('/authors', author:{name:$scope.name, email:$scope.email})
 {% endhighlight %}
 
-And there you go. Progressive enhancement for JS users and Plain Old Form Submits for non JS users!
+And there you go. Progressive enhancement for JS users and Plain Old Posts for non JS users!
 
-### In the next part
+### [In the next part](/2014/02/17/rails-form-enhancement-with-angular-part-two.html)(s)
 We will look at handlng validations, implementing a nested form and how fields_for correleates quite nicely to Angulars ng-repeat.
 
 * handle validations with angular

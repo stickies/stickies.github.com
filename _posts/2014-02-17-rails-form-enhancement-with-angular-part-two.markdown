@@ -106,7 +106,7 @@ The service looks like this:
 
 Now that we have a form service handling our form submission, we can start to think about adding and removing authors and how to implement these in JS and POP ( Plain Old Posts ).
 
-We're going to start with the progressively enhanced version and the fallback to POP ( Plain Old Posts ) with the help of some directives. Directives are a feature of Angular that enable you to do stuff.
+We're going to start with the progressively enhanced version and the fallback to POP with the help of some directives. Directives are a feature of Angular that enable you to do stuff.
 
 We open up our [authors partial](https://raw2.github.com/stevemartin/rangular/52da63e1b3332f1ceaf72122602b53b5593b763c/app/views/authors/form/_articles.html.haml) at `app/views/authors/form/_articles.html.haml`. And add the buttons that we are going to use, so that the template reads like this:
 
@@ -151,7 +151,7 @@ Now we add the [angular directive code](https://github.com/stevemartin/rangular/
 
 ### Handling the form with Plain Old Posts.
 
-This part pays homage to the concepts outlined in Hexagonal Rails.
+This part pays homage to the concepts outlined in [Hexagonal Rails](https://www.agileplannerapp.com/blog/building-agile-planner/refactoring-with-hexagonal-rails).
 
 In order to add and remove articles without the use of angular or ajax, we will need to use some plain old posting with form state handling added in to give us an almost up to par user experience.
 
